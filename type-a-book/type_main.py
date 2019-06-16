@@ -1,4 +1,5 @@
 import time
+import pprint
 
 
 def wpm_calc(time_start, time_stop, type_word):
@@ -15,7 +16,12 @@ def main():
     import readchar
 
     print("Type the words below")
-    type_string = "The quick brown fox jumps over the lazy dog"
+    # type_string = "The quick brown fox jumps over the lazy dog"
+    type_string = "The quick and the fast"
+    time_str_start = time.time()
+
+    spelled_words_and_time = {}
+    misspelled_words = set([])
 
     for idx, type_word in enumerate(type_string.split(" ")):
         input_word = ""
@@ -25,7 +31,7 @@ def main():
             input_word = ""
             print(type_string)
             print(type_word)
-            time_start = time.time()
+            time_word_start = time.time()
             input_char = readchar.readchar()
             while input_char not in return_chars:
                 if ord(input_char) == 3:
@@ -33,14 +39,30 @@ def main():
                 input_word += input_char
                 input_char = readchar.readchar()
             else:
-                time_stop = time.time()
+                time_word_stop = time.time()
 
             if input_word != type_word:
+                misspelled_words.add(type_word)
                 print("\n!!Wrong Word!!\n")
+            else:
+                word_wpm = wpm_calc(time_word_start, time_word_stop, type_word)
 
-        print(wpm_calc(time_start, time_stop, type_word))
+                if type_word.lower() in spelled_words_and_time:
+                    spelled_words_and_time[type_word.lower()].append(word_wpm)
+                else:
+                    spelled_words_and_time[type_word.lower()] = [word_wpm, ]
 
-    print("\n\nComplete!")
+    else:
+        time_str_stop = time.time()
+        print("\n\nComplete!")
+        print(wpm_calc(time_str_start, time_str_stop, type_string))
+        if len(misspelled_words) != 0:
+            print("misspelled_words:")
+            print(misspelled_words)
+            print("\n")
+
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(str(spelled_words_and_time))
 
 
 if __name__ == "__main__":
