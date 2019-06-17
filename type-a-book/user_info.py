@@ -20,6 +20,31 @@ class UserInfo():
         f.close()
         return word_list
 
+    def log_words_typing_speeds(self, typing_speeds):
+        current_speeds = self.retreive_typing_speeds()
+
+        f = open(self.words_speeds_file_name, 'w')
+        for word, speeds in typing_speeds.items():
+            f.write(str(word) + ":" + str(speeds) + "\n")
+        f.close()
+
+
+    def retreive_typing_speeds(self):
+        if not os.path.exists(self.words_speeds_file_name):
+            return {}
+        f = open(self.words_speeds_file_name, 'r')
+        speed_info = {}
+        for line in f:
+            word, speeds = line.split(":")
+            speed_list = speeds[1:-2].split(",")
+            print(speeds)
+            print(speed_list)
+            speed_info[word] = [float(speed_list[0]),]
+            for speed_str in speed_list[1:]:
+                speed_info[word].append(float(speed_str))
+        f.close()
+        return speed_info
+
 
     def unit_tests(self):
         # misspelled words
