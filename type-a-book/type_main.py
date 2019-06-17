@@ -29,7 +29,7 @@ def main():
         print("\n")
 
         input_char = readchar.readchar().lower()
-        start_typing = TypeQuick()
+        start_typing = TypeQuick(user_name)
 
         if input_char == '1':
             print("Quick Type!")
@@ -46,6 +46,5 @@ def main():
 
 
 if __name__ == "__main__":
-    UserInfo("Unit_Tests")
-    exit()
+    UserInfo("Unit_Tests").unit_tests()
     main()

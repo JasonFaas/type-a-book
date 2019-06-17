@@ -66,6 +66,7 @@ class TypeQuick():
             if len(misspelled_words) != 0:
                 print("misspelled_words:")
                 print(misspelled_words)
+                self.user_info.log_misspelled_words(misspelled_words)
                 print("\n")
 
         pp = pprint.PrettyPrinter(indent=4)
