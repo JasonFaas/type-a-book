@@ -1,25 +1,31 @@
 import time
 import pprint
 import readchar
+from user_info import UserInfo
 
 class TypeQuick():
+    def __init__(self, user_name):
+        self.user_info = UserInfo(user_name)
 
     def short(self):
-        self.type_paragraph("The quick and the fast")
+        self._type_paragraph("The quick and the fast")
 
     def long(self):
-        self.type_paragraph("The quick brown fox jumps over the lazy dog")
+        self._type_paragraph("The quick brown fox jumps over the lazy dog")
 
-    def single_char(self):
+    def print_char_info(self):
         while True:
-            input_char = readchar.readchar()
-            print("ASCII Value: " + str(ord(input_char)))
-            if ord(input_char) == 3:
-                raise Exception("Contrl+C Detected")
+            single_char = self._get_single_char()
+            if print_char_info:
+                print("ASCII Value: " + str(ord(input_char)))
 
+    def _get_single_char(self):
+        input_char = readchar.readchar()
+        if ord(input_char) == 3:
+            raise Exception("Contrl+C Detected")
+        return input_char
 
-
-    def type_paragraph(self, type_string):
+    def _type_paragraph(self, type_string):
         print("Type the words below")
         time_str_start = time.time()
 
@@ -35,12 +41,10 @@ class TypeQuick():
                 print(type_string)
                 print(type_word)
                 time_word_start = time.time()
-                input_char = readchar.readchar()
+                input_char = self._get_single_char()
                 while input_char not in return_chars:
-                    if ord(input_char) == 3:
-                        raise Exception("Contrl+C Detected")
                     input_word += input_char
-                    input_char = readchar.readchar()
+                    input_char = self._get_single_char()
                 else:
                     time_word_stop = time.time()
 
