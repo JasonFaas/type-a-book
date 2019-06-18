@@ -22,9 +22,16 @@ class UserInfo():
 
     def log_words_typing_speeds(self, typing_speeds):
         current_speeds = self.retreive_typing_speeds()
+        for word, speeds in typing_speeds.items():
+            if word not in current_speeds:
+                current_speeds[word] = []
+            for speed in speeds:
+                current_speeds[word].append(speed)
+            current_speeds[word] = current_speeds[word][-5:]
+
 
         f = open(self.words_speeds_file_name, 'w')
-        for word, speeds in typing_speeds.items():
+        for word, speeds in current_speeds.items():
             f.write(str(word) + ":" + str(speeds) + "\n")
         f.close()
 
@@ -39,8 +46,8 @@ class UserInfo():
             speed_list = speeds[1:-2].split(",")
             print(speeds)
             print(speed_list)
-            speed_info[word] = [float(speed_list[0]),]
-            for speed_str in speed_list[1:]:
+            speed_info[word] = []
+            for speed_str in speed_list:
                 speed_info[word].append(float(speed_str))
         f.close()
         return speed_info

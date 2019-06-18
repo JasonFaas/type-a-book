@@ -11,7 +11,8 @@ class TypeQuick():
         self._type_paragraph("The quick and the fast")
 
     def long(self):
-        self._type_paragraph("The quick brown fox jumps over the lazy dog")
+        self._type_paragraph("The quick brown fox jumps over the lazy dog. " + 
+            "No kidding, Lorenzo called off his trip to Mexico City just because they told him the conquistadors were extinct.")
 
     def print_char_info(self):
         while True:
