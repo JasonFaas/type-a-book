@@ -16,15 +16,15 @@ def main():
                         "\n\t\t1: Start typing - 6 words" +
                         "\n\t\t2: Start typing - 2 sentences" +
                         "\n\t\t3: Value of each character" +
-                        "\n\t\tA: Type A Book" +
-                        "\n\t\tB: Review misspelled words" +
-                        "\n\t\tC: Improve slower words" +
-                        "\n\t\tD: Learn recent word" +
+                        "\n\t\tA: Type A Book - TODO: Implemente!" +
+                        "\n\t\tB: Review misspelled words - TODO: Implemente!" +
+                        "\n\t\tC: Improve slower words - TODO: Implemente!" +
+                        "\n\t\tD: Learn recent word - TODO: Implemente!" +
                         "\n\t\tQ: Exit Program" +
                         "\n\tHotkeys during Typing:"
                         "\n\t\tCtrl+C: Exit Program" +
-                        "\n\t\tCtrl+Q: Main Menu" +
-                        "\n\t\tCtrl+W: Look up definition for recent word")
+                        "\n\t\tCtrl+Q: Main Menu - TODO: Implemente!" +
+                        "\n\t\tCtrl+W: Look up definition for recent word - TODO: Implemente!")
 
         print(introduction)
         print("\n")
@@ -41,9 +41,16 @@ def main():
         elif input_char == '3':
             print("Character Interogate!")
             start_typing.single_char()
+        elif input_char == 'b':
+            print("Reviewing misspelled words!")
+            start_typing.misspelled()
+            exit()
         elif input_char == 'q':
             print("Exiting!")
             exit()
+        else:
+            print("Invalid input")
+
 
 
 if __name__ == "__main__":

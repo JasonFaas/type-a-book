@@ -2,7 +2,7 @@ import os
 
 class UserInfo():
     def __init__(self, user_name):
-        self.user_name = user_name
+        self.user_name = user_name.replace(" ", "_")
         self.misspelled_file_name = "../resources/user-info/" + self.user_name + "-words-misspelled.txt"
         self.words_speeds_file_name = "../resources/user-info/" + self.user_name + "-words-typing-speed.txt"
 
@@ -44,8 +44,6 @@ class UserInfo():
         for line in f:
             word, speeds = line.split(":")
             speed_list = speeds[1:-2].split(",")
-            print(speeds)
-            print(speed_list)
             speed_info[word] = []
             for speed_str in speed_list:
                 speed_info[word].append(float(speed_str))

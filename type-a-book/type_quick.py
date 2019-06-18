@@ -1,14 +1,17 @@
 import time
 import pprint
 import readchar
+import re
+
 from user_info import UserInfo
 
 class TypeQuick():
     def __init__(self, user_name):
         self.user_info = UserInfo(user_name)
+        self.regex_alphanumeric = re.compile('\\w+')
 
     def short(self):
-        self._type_paragraph("The quick and the fast")
+        self._type_paragraph("The quick and the fast!")
 
     def long(self):
         self._type_paragraph("The quick brown fox jumps over the lazy dog. " + 
@@ -41,6 +44,7 @@ class TypeQuick():
                 input_word = ""
                 print(type_string)
                 print(type_word)
+                type_word_log_value = self.regex_alphanumeric.findall(type_word.lower())[0]
                 time_word_start = time.time()
                 input_char = self._get_single_char()
                 while input_char not in return_chars:
@@ -50,28 +54,27 @@ class TypeQuick():
                     time_word_stop = time.time()
 
                 if input_word != type_word:
-                    misspelled_words.add(type_word)
+                    misspelled_words.add(type_word_log_value)
                     print("\n!!Wrong Word!!\n")
                 else:
                     word_wpm = self.wpm_calc(time_word_start, time_word_stop, type_word)
 
-                    if type_word.lower() in spelled_words_and_time:
-                        spelled_words_and_time[type_word.lower()].append(word_wpm)
-                    else:
-                        spelled_words_and_time[type_word.lower()] = [word_wpm, ]
+                    if type_word_log_value not in spelled_words_and_time:
+                        spelled_words_and_time[type_word_log_value] = []
+                    spelled_words_and_time[type_word_log_value].append(word_wpm)
+                        
 
         else:
             time_str_stop = time.time()
             print("\n\nComplete!")
             print(self.wpm_calc(time_str_start, time_str_stop, type_string))
             if len(misspelled_words) != 0:
-                print("misspelled_words:")
+                print("Misspelled Words:")
                 print(misspelled_words)
                 self.user_info.log_misspelled_words(misspelled_words)
                 print("\n")
 
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(str(spelled_words_and_time))
+        self.user_info.log_words_typing_speeds(spelled_words_and_time)
 
     def wpm_calc(self, time_start, time_stop, type_word):
         time_total = time_stop - time_start
