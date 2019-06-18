@@ -29,6 +29,19 @@ class TypeQuick():
             raise Exception("Contrl+C Detected")
         return input_char
 
+    def review_misspelled(self):
+        # TODO: display list of misspelled words
+        to_review = self.user_info.retreive_misspelled_words()
+        print("Words to review")
+        print(to_review)
+
+        print("\n1st word:")
+        print("Type the word 5 times without making a mistake:")
+        counter = 0
+        while counter < 5:
+            counter += 1
+            word_to_type(to_review[0])
+
     def _type_paragraph(self, type_string):
         print("Type the words below")
         time_str_start = time.time()
@@ -36,14 +49,18 @@ class TypeQuick():
         spelled_words_and_time = {}
         misspelled_words = set([])
 
-        for idx, type_word in enumerate(type_string.split(" ")):
+        split_words = type_string.split(" ")
+        for idx, type_word in enumerate(split_words):
             input_word = ""
             return_chars = [' ', chr(13)]
 
             while input_word != type_word:
                 input_word = ""
                 print(type_string)
-                print(type_word)
+                if idx == len(split_words) - 1:
+                    print(type_word + "⏎")
+                else:
+                    print(type_word)
                 type_word_log_value = self.regex_alphanumeric.findall(type_word.lower())[0]
                 time_word_start = time.time()
                 input_char = self._get_single_char()

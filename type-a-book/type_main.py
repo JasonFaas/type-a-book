@@ -43,7 +43,7 @@ def main():
             start_typing.single_char()
         elif input_char == 'b':
             print("Reviewing misspelled words!")
-            start_typing.misspelled()
+            start_typing.review_misspelled()
             exit()
         elif input_char == 'q':
             print("Exiting!")
