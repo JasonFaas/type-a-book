@@ -3,6 +3,7 @@ import pprint
 import readchar
 
 from type_quick import TypeQuick
+from type_stuff import TypeStuff
 from user_info import UserInfo
 from book_info import BookInfo
 
@@ -66,6 +67,7 @@ def main():
 
 
 if __name__ == "__main__":
+    TypeStuff("Unit_Tests").unit_tests()
     UserInfo("Unit_Tests").unit_tests()
     BookInfo().unit_tests()
     main()

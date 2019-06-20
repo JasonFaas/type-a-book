@@ -22,7 +22,8 @@ class UserInfo():
         f = open(self.misspelled_file_name, "r")
         word_list = set()
         for line in f:
-            word_list.add(line[:-1])
+            if len(line) > 2:
+                word_list.add(line[:-1])
         f.close()
         return word_list
 
@@ -69,7 +70,7 @@ class UserInfo():
         # misspelled words
         if os.path.exists(self.misspelled_file_name):
             os.remove(self.misspelled_file_name)
-        self.log_misspelled_words({"what", "that"})
+        self.log_misspelled_words({"what", " ", "that"})
         misspelled_words = self.retreive_misspelled_words()
         if misspelled_words != {'what', 'that'}:
             raise Exception("Failure:" + str(misspelled_words) + ":")
