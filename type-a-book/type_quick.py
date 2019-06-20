@@ -1,3 +1,4 @@
+from book_info import BookInfo
 from type_exceptions import MisspelledWordException
 from type_stuff import TypeStuff
 from user_info import UserInfo
@@ -6,9 +7,10 @@ class TypeQuick():
     def __init__(self, user_name):
         self.user_info = UserInfo(user_name)
         self.type_stuff = TypeStuff(user_name)
+        self.book_info = BookInfo()
 
     def short(self):
-        self.type_stuff._type_paragraph("The quick and the fast!")
+        self.type_stuff._type_paragraph("The quick and-the fast!")
 
     def long(self):
         self.type_stuff._type_paragraph("The quick brown fox jumps over the lazy dog. " + 
@@ -18,6 +20,29 @@ class TypeQuick():
         while True:
             single_char = self.type_stuff._get_single_char()
             print("ASCII Value: " + str(ord(single_char)))
+
+    def type_a_book(self):
+        print(self.book_info.book_list())
+        book_chosen = input("Choose book from above list:")
+        book_chapters = self.book_info.chapter_list(book_chosen)
+        while len(book_chapters) == 0:
+            print("Wrong choice '" + book_chosen + "'")
+            book_chosen = input("Choose book from above list:")
+            book_chapters = self.book_info.chapter_list(book_chosen)
+
+        print("\nChapters")
+        for chapter in book_chapters:
+            print("\t" + chapter)
+        chapter_chosen = input("Choose chapter from above list:")
+        while chapter_chosen not in book_chapters:
+            print("Wrong choice '" + chapter_chosen + "'")
+            chapter_chosen = input("Choose chapter from above list:")
+
+        # TODO read in book and print file
+        full_chapter = self.book_info.chapter_of_book(book_chosen, chapter_chosen)
+        self.type_stuff.type_chapter(full_chapter)
+
+
 
     def review_misspelled(self):
         to_review = list(self.user_info.retreive_misspelled_words())

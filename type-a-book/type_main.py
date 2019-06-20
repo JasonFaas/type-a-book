@@ -4,6 +4,7 @@ import readchar
 
 from type_quick import TypeQuick
 from user_info import UserInfo
+from book_info import BookInfo
 
 
 def main():
@@ -44,6 +45,9 @@ def main():
                 start_typing.print_char_info()
             except Exception as e:
                 print("Threw established excpetion:\n\t" + str(e))
+        elif input_char == 'a':
+            print("Type-A-Book!")
+            start_typing.type_a_book()
         elif input_char == 'b':
             print("Reviewing misspelled words!")
             start_typing.review_misspelled()
@@ -63,4 +67,5 @@ def main():
 
 if __name__ == "__main__":
     UserInfo("Unit_Tests").unit_tests()
+    BookInfo().unit_tests()
     main()

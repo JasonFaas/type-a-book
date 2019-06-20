@@ -8,7 +8,7 @@ from user_info import UserInfo
 class TypeStuff():
 
     def __init__(self, user_name):
-        self.regex_alphanumeric = re.compile('\\w+')
+        self.regex_alphanumeric = re.compile('\\w+(-\\w+)*')
         self.user_info = UserInfo(user_name)
 
     def _get_single_char(self):
@@ -80,6 +80,11 @@ class TypeStuff():
                 print(misspelled_words)
                 self.user_info.log_misspelled_words(misspelled_words)
                 print("\n")
+
+    def type_chapter(self, full_chapter):
+        paragraphs = full_chapter.split('\n')
+        for section in paragraphs:
+            self._type_paragraph(section)
 
 
     def wpm_calc(self, time_start, time_stop, typed_word):
