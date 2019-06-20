@@ -1,4 +1,5 @@
 import os
+import statistics
 
 class UserInfo():
     def __init__(self, user_name):
@@ -55,6 +56,14 @@ class UserInfo():
         f.close()
         return speed_info
 
+    def retreive_typing_speeds_averages(self):
+        word_speeds = self.retreive_typing_speeds()
+        word_averages = {}
+        for word, speeds in word_speeds.items():
+            word_averages[word] = round(statistics.mean(speeds), 2)
+
+        return word_averages
+
 
     def unit_tests(self):
         # misspelled words
@@ -87,6 +96,11 @@ class UserInfo():
         round_2_actual = self.retreive_typing_speeds()
         if round_2_actual != round_2_expected:
             raise Exception("Failure:" + str(round_2_actual) + ":")
+
+        round_2_averages_expected = {'what':30.24, 'that':26.20, 'hello':3.85}
+        round_2_averages_actual = self.retreive_typing_speeds_averages()
+        if round_2_averages_actual != round_2_averages_expected:
+            raise Exception("Failure:" + str(round_2_averages_actual) + ":")
         
 
 

@@ -30,7 +30,6 @@ class TypeQuick():
         return input_char
 
     def review_misspelled(self):
-        # TODO: display list of misspelled words
         to_review = list(self.user_info.retreive_misspelled_words())
         if len(to_review) == 0:
             print("No words to review. Go Type-A-Book!")
@@ -39,6 +38,12 @@ class TypeQuick():
         print(to_review)
 
         print("\n1st word:")
+        self.type_word_5_times(to_review[0])
+        
+        self.user_info.remove_misspelled_word(to_review[0])
+
+
+    def type_word_5_times(self, word_to_type):
         print("Type the word 5 times without making a mistake:")
         counter = 0
         while counter < 5:
@@ -46,11 +51,22 @@ class TypeQuick():
             print(counter)
             try:
                 print("\nType:")
-                self.type_this_word(to_review[0])
+                self.type_this_word(word_to_type)
             except MisspelledWordException as e:
                 print("What happened?:" + e.expected_word + ":" + e.actual_word)
                 counter = 0
-        self.user_info.remove_misspelled_word(to_review[0])
+
+    def review_slowest_word(self):
+        averages = self.user_info.retreive_typing_speeds_averages()
+        print("Average speeds:" + str(averages))
+        slowest_word = min(averages, key=averages.get)
+        print("Slowest word:" + slowest_word + " " + str(averages[slowest_word]) + " wpm")
+
+        self.type_word_5_times(slowest_word)
+
+        new_averages = self.user_info.retreive_typing_speeds_averages()
+        new_slowest_word = min(new_averages, key=new_averages.get)
+        print("New slowest_word word:" + new_slowest_word + " " + str(averages[new_slowest_word]) + " wpm")
 
 
     def type_this_word(self, word_to_review):

@@ -18,7 +18,7 @@ def main():
                         "\n\t\t3: Value of each character" +
                         "\n\t\tA: Type A Book - TODO: Implemente!" +
                         "\n\t\tB: Review misspelled words" +
-                        "\n\t\tC: Improve slower words - TODO: Implemente!" +
+                        "\n\t\tC: Improve slower words" +
                         "\n\t\tD: Learn recent word - TODO: Implemente!" +
                         "\n\t\tQ: Exit Program" +
                         "\n\tHotkeys during Typing:"
@@ -47,6 +47,12 @@ def main():
         elif input_char == 'b':
             print("Reviewing misspelled words!")
             start_typing.review_misspelled()
+        elif input_char == 'c':
+            print("Improve slower words!")
+            start_typing.review_slowest_word()
+        elif input_char == 'd':
+            print("Should write learn new words!")
+            print("Look through slow or less than 5 entries or just recent words!")
         elif input_char == 'q':
             print("Exiting!")
             exit()
