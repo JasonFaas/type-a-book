@@ -17,7 +17,7 @@ def main():
                         "\n\t\t2: Start typing - 2 sentences" +
                         "\n\t\t3: Value of each character" +
                         "\n\t\tA: Type A Book - TODO: Implemente!" +
-                        "\n\t\tB: Review misspelled words - TODO: Implemente!" +
+                        "\n\t\tB: Review misspelled words" +
                         "\n\t\tC: Improve slower words - TODO: Implemente!" +
                         "\n\t\tD: Learn recent word - TODO: Implemente!" +
                         "\n\t\tQ: Exit Program" +
@@ -40,11 +40,13 @@ def main():
             start_typing.long()
         elif input_char == '3':
             print("Character Interogate!")
-            start_typing.single_char()
+            try:
+                start_typing.print_char_info()
+            except Exception as e:
+                print("Threw established excpetion:\n\t" + str(e))
         elif input_char == 'b':
             print("Reviewing misspelled words!")
             start_typing.review_misspelled()
-            exit()
         elif input_char == 'q':
             print("Exiting!")
             exit()

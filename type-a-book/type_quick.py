@@ -3,6 +3,7 @@ import pprint
 import readchar
 import re
 
+from type_exceptions import MisspelledWordException
 from user_info import UserInfo
 
 class TypeQuick():
@@ -20,8 +21,7 @@ class TypeQuick():
     def print_char_info(self):
         while True:
             single_char = self._get_single_char()
-            if print_char_info:
-                print("ASCII Value: " + str(ord(input_char)))
+            print("ASCII Value: " + str(ord(single_char)))
 
     def _get_single_char(self):
         input_char = readchar.readchar()
@@ -31,7 +31,10 @@ class TypeQuick():
 
     def review_misspelled(self):
         # TODO: display list of misspelled words
-        to_review = self.user_info.retreive_misspelled_words()
+        to_review = list(self.user_info.retreive_misspelled_words())
+        if len(to_review) == 0:
+            print("No words to review. Go Type-A-Book!")
+            return
         print("Words to review")
         print(to_review)
 
@@ -40,7 +43,38 @@ class TypeQuick():
         counter = 0
         while counter < 5:
             counter += 1
-            word_to_type(to_review[0])
+            print(counter)
+            try:
+                self.review_word(to_review[0])
+            except MisspelledWordException as e:
+                print("What happened?:" + e.expected_word + ":" + e.actual_word)
+                count = 0
+        self.user_info.remove_misspelled_word(to_review[0])
+
+
+    def review_word(self, word_to_review):
+        input_word = ""
+        return_chars = [' ', chr(13)]
+
+        while input_word != word_to_review:
+            input_word = ""
+            print("\nType:")
+            print(word_to_review)
+            type_word_log_value = self.regex_alphanumeric.findall(word_to_review.lower())[0]
+            time_word_start = time.time()
+            input_char = ''
+            while input_char not in return_chars and input_word != word_to_review:
+                input_word += input_char
+                input_char = self._get_single_char()
+            else:
+                time_word_stop = time.time()
+
+            if input_word != word_to_review:
+                raise MisspelledWordException(word_to_review, input_word)
+            else:
+                word_wpm = self.wpm_calc(time_word_start, time_word_stop, input_word)
+                self.user_info.log_words_typing_speeds({input_word:[word_wpm]})
+
 
     def _type_paragraph(self, type_string):
         print("Type the words below")
@@ -63,7 +97,7 @@ class TypeQuick():
                     print(type_word)
                 type_word_log_value = self.regex_alphanumeric.findall(type_word.lower())[0]
                 time_word_start = time.time()
-                input_char = self._get_single_char()
+                input_char = ''
                 while input_char not in return_chars:
                     input_word += input_char
                     input_char = self._get_single_char()
@@ -74,13 +108,12 @@ class TypeQuick():
                     misspelled_words.add(type_word_log_value)
                     print("\n!!Wrong Word!!\n")
                 else:
-                    word_wpm = self.wpm_calc(time_word_start, time_word_stop, type_word)
+                    word_wpm = self.wpm_calc(time_word_start, time_word_stop, type_word + " ")
 
                     if type_word_log_value not in spelled_words_and_time:
                         spelled_words_and_time[type_word_log_value] = []
                     spelled_words_and_time[type_word_log_value].append(word_wpm)
                         
-
         else:
             time_str_stop = time.time()
             print("\n\nComplete!")
@@ -95,7 +128,7 @@ class TypeQuick():
 
     def wpm_calc(self, time_start, time_stop, type_word):
         time_total = time_stop - time_start
-        char_per_sec = (len(type_word) + 1) / time_total
+        char_per_sec = len(type_word) / time_total
         words_per_sec = char_per_sec / 5
         words_per_min = words_per_sec * 60
         rounded = round(words_per_min, 2)

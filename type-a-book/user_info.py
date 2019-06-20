@@ -6,11 +6,16 @@ class UserInfo():
         self.misspelled_file_name = "../resources/user-info/" + self.user_name + "-words-misspelled.txt"
         self.words_speeds_file_name = "../resources/user-info/" + self.user_name + "-words-typing-speed.txt"
 
-    def log_misspelled_words(self, word_list):
-        f = open(self.misspelled_file_name, 'a')
+    def log_misspelled_words(self, word_list, file_write_style = 'a'):
+        f = open(self.misspelled_file_name, file_write_style)
         for word in word_list:
             f.write(word + "\n")
         f.close()
+
+    def remove_misspelled_word(self, word_to_remove):
+        curr_set = self.retreive_misspelled_words()
+        curr_set.remove(word_to_remove)
+        self.log_misspelled_words(curr_set, 'w')
 
     def retreive_misspelled_words(self):
         f = open(self.misspelled_file_name, "r")
@@ -59,6 +64,13 @@ class UserInfo():
         misspelled_words = self.retreive_misspelled_words()
         if misspelled_words != {'what', 'that'}:
             raise Exception("Failure:" + str(misspelled_words) + ":")
+
+        # remove misspelled word
+        if os.path.exists(self.misspelled_file_name):
+            os.remove(self.misspelled_file_name)
+        self.log_misspelled_words({"what", "that"})
+        self.remove_misspelled_word("what")
+        self.log_misspelled_words({"that"})
 
         # user typing speeds
         if os.path.exists(self.words_speeds_file_name):
