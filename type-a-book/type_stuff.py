@@ -8,7 +8,7 @@ from user_info import UserInfo
 class TypeStuff():
 
     def __init__(self, user_name):
-        self.regex_log_word = re.compile(r'[A-Za-z0-9_-]+')
+        self.regex_log_word = re.compile(r"['A-Za-z0-9_-]+")
         self.user_info = UserInfo(user_name)
 
     def _get_single_char(self):
@@ -103,8 +103,11 @@ class TypeStuff():
 
     def unit_tests(self):
         regex_verify = [["what", "what"],
-                        ["what-the", "what-the"],
+                        ["what-t'he", "what-t'he"],
                         ["what-the.", "what-the"]]
         for word, expected_word in regex_verify:
             actual_regex = self.regex_log_word.findall(word)[0]
+            if actual_regex != expected_word:
+                print(actual_regex)
+                print(expected_word)
             assert actual_regex == expected_word        
