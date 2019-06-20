@@ -1,0 +1,91 @@
+import re
+import readchar
+import time
+
+from type_exceptions import MisspelledWordException
+from user_info import UserInfo
+
+class TypeStuff():
+
+    def __init__(self, user_name):
+        self.regex_alphanumeric = re.compile('\\w+')
+        self.user_info = UserInfo(user_name)
+
+    def _get_single_char(self):
+        input_char = readchar.readchar()
+        if ord(input_char) == 3:
+            raise Exception("Contrl+C Detected")
+        return input_char
+
+    def type_this_word(self, word_to_review):
+        return_chars = [' ', chr(13)]
+
+        print("'" + word_to_review + "'")
+        time_word_start = time.time()
+        input_char = ''
+        input_word = ''
+        while input_char not in return_chars and input_word != word_to_review:
+            input_char = self._get_single_char()
+            input_word += input_char
+        else:
+            time_word_stop = time.time()
+
+        input_word = input_word.replace(str(chr(13)), "⏎")
+        if input_word != word_to_review:
+            raise MisspelledWordException(word_to_review, input_word)
+        else:
+            word_wpm = self.wpm_calc(time_word_start, time_word_stop, word_to_review)
+            
+            type_word_log_value = self.regex_alphanumeric.findall(word_to_review.lower())[0]
+            self.user_info.log_words_typing_speeds({type_word_log_value:[word_wpm]})
+
+        return word_wpm
+
+
+    def _type_paragraph(self, paragraph_to_type):
+        print("Type the words below")
+        time_str_start = time.time()
+        misspelled_words = set([])
+        words_speeds = {}
+        split_words = paragraph_to_type.split(" ")
+        for word_to_type in split_words:
+            type_word_log_value = self.regex_alphanumeric.findall(word_to_type.lower())[0]
+            words_speeds[type_word_log_value] = []
+
+        for idx, word_to_type in enumerate(split_words):
+            while True:
+                type_word_log_value = self.regex_alphanumeric.findall(word_to_type.lower())[0]
+                print(paragraph_to_type)
+
+                if idx == len(split_words) - 1:
+                    word_with_ending = word_to_type + "⏎"
+                else:
+                    word_with_ending = word_to_type + " "
+                try:
+                    wpm = self.type_this_word(word_with_ending)
+                    words_speeds[type_word_log_value].append(wpm)
+                    break
+                except MisspelledWordException as e:
+                    print("\n!!Wrong Word:" + e.expected_word + ":" + e.actual_word + "::\n")
+                    misspelled_words.add(type_word_log_value)
+        else:
+            time_str_stop = time.time()
+            paragraph_wpm = self.wpm_calc(time_str_start, time_str_stop, paragraph_to_type + "⏎")
+
+            self.user_info.log_words_typing_speeds(words_speeds)
+
+            print("\nComplete! Paragraph at " + str(paragraph_wpm) + " WPM")
+            if len(misspelled_words) != 0:
+                print("Misspelled Words:")
+                print(misspelled_words)
+                self.user_info.log_misspelled_words(misspelled_words)
+                print("\n")
+
+
+    def wpm_calc(self, time_start, time_stop, typed_word):
+        time_total = time_stop - time_start
+        char_per_sec = len(typed_word) / time_total
+        words_per_sec = char_per_sec / 5
+        words_per_min = words_per_sec * 60
+        rounded = round(words_per_min, 2)
+        return rounded
