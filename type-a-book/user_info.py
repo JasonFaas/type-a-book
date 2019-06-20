@@ -80,7 +80,17 @@ class UserInfo():
             os.remove(self.misspelled_file_name)
         self.log_misspelled_words({"what", "that"})
         self.remove_misspelled_word("what")
+        misspelled_words = self.retreive_misspelled_words()
+        if misspelled_words != {'that'}:
+            raise Exception("Failure:" + str(misspelled_words) + ":")
+
+        # add duplicate word
         self.log_misspelled_words({"that"})
+        self.log_misspelled_words({"that"})
+        misspelled_words = self.retreive_misspelled_words()
+        if misspelled_words != {'that'}:
+            raise Exception("Failure:" + str(misspelled_words) + ":")
+
 
         # user typing speeds
         if os.path.exists(self.words_speeds_file_name):
