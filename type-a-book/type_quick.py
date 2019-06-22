@@ -10,7 +10,7 @@ class TypeQuick():
         self.book_info = BookInfo()
 
     def short(self):
-        self.type_stuff._type_paragraph("The quick and-the fast!")
+        self.type_stuff._type_paragraph("“Oh, the quick and-the fast!")
 
     def long(self):
         self.type_stuff._type_paragraph("The quick brown fox jumps over the lazy dog. " + 

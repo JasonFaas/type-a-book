@@ -1,11 +1,14 @@
+import json
 import os
 import statistics
 
 class UserInfo():
     def __init__(self, user_name):
         self.user_name = user_name.replace(" ", "_")
-        self.misspelled_file_name = "../resources/user-info/" + self.user_name + "-words-misspelled.txt"
-        self.words_speeds_file_name = "../resources/user-info/" + self.user_name + "-words-typing-speed.txt"
+        self.misspelled_file_name = "../resources/user-info/{}-words-misspelled.txt".format(self.user_name)
+        self.words_speeds_file_name = "../resources/user-info/{}-words-typing-speed.txt".format(self.user_name)
+        self.book_positions_file_name = "../resources/user-info/{}-books-positions.txt".format(self.user_name)
+
 
     def log_misspelled_words(self, word_list, file_write_style = 'a'):
         f = open(self.misspelled_file_name, file_write_style)
@@ -41,6 +44,23 @@ class UserInfo():
         for word, speeds in current_speeds.items():
             f.write(str(word) + ":" + str(speeds) + "\n")
         f.close()
+
+    def log_book_position(self, new_book, new_info):
+        current_positions = self.retreive_book_positions()
+        current_positions[new_book] = new_info
+
+        with open(self.book_positions_file_name, 'w') as file:
+             file.write(json.dumps(current_positions))
+
+    def retreive_book_positions(self):
+        if not os.path.exists(self.book_positions_file_name):
+            return {}
+
+        f = open(self.book_positions_file_name, 'r')
+        s = f.read()
+        return_val = eval(s)
+        f.close()
+        return return_val
 
 
     def retreive_typing_speeds(self):
@@ -113,6 +133,13 @@ class UserInfo():
         if round_2_averages_actual != round_2_averages_expected:
             raise Exception("Failure:" + str(round_2_averages_actual) + ":")
         
-
-
+        # log location of book
+        if os.path.exists(self.book_positions_file_name):
+            os.remove(self.book_positions_file_name)
+        expected_book_positions = {"Peter_Pan":{"Chapter":"01-Chapter_1.txt", "Paragraph":3},
+                                   "Starship_Troopers":{"Chapter":"01-Chapter_2.txt", "Paragraph":4}}
+        self.log_book_position("Peter_Pan", expected_book_positions["Peter_Pan"])
+        self.log_book_position("Starship_Troopers", expected_book_positions["Starship_Troopers"])
+        actual_book_positions = self.retreive_book_positions()
+        assert actual_book_positions == expected_book_positions
 

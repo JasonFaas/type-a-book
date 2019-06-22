@@ -22,6 +22,9 @@ class BookInfo():
         with open(file, 'r') as file:
             data = file.read()
 
+        # TODO make this more efficient
+        data = data.replace(chr(8220), "\"").replace(chr(8221), "\"")
+
         return data
 
 
@@ -32,3 +35,17 @@ class BookInfo():
                                                   "01-Chapter_1",
                                                   "02-Chapter_2",
                                                   "03-Chapter_3"]
+
+        self.verify_all_books_all_legal_characters()
+
+    def verify_all_books_all_legal_characters(self):
+        # TODO make this more efficient
+        for book in self.book_list():
+            for chapter in self.chapter_list(book):
+                text = self.chapter_of_book(book, chapter)
+                for char in text:
+                    if ord(char) > 127:
+                        print(ord(char))
+                    assert ord(char) < 127
+
+
