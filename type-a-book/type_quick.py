@@ -2,12 +2,15 @@ from book_info import BookInfo
 from type_exceptions import MisspelledWordException
 from type_stuff import TypeStuff
 from user_info import UserInfo
+from api_request import ApiRequest
+
 
 class TypeQuick():
     def __init__(self, user_name):
         self.user_info = UserInfo(user_name)
         self.type_stuff = TypeStuff(user_name)
         self.book_info = BookInfo()
+        self.api_request = ApiRequest()
 
     def short(self):
         self.type_stuff._type_paragraph("The quick and-the fast!")
@@ -71,11 +74,12 @@ class TypeQuick():
         if len(to_review) == 0:
             print("No words to review. Go Type-A-Book!")
             return
-        print("Words to review")
-        print(to_review)
+        print("{} words to review".format(len(to_review)))
+        # print(to_review)
 
-        print("\n1st word:")
-        self._type_word_5_times(to_review[0])
+        # TODO: decide which review type is best
+        # self._type_word_5_times(to_review[0])
+        self._review_with_definition(to_review[0])
         
         self.user_info.remove_misspelled_word(to_review[0])
 
@@ -96,8 +100,24 @@ class TypeQuick():
         print("New slowest_word word:" + new_slowest_word + " " + str(before_averages[new_slowest_word]) + " wpm")
 
 
+    def _review_with_definition(self, word_to_type):
+        print("Review '{}' by typing the word and definition without making a mistake:\n".format(word_to_type))
+
+        word_info = self.api_request.word_info(word_to_type)
+
+        build_a_parapgraph = "{} {} {}.".format(word_to_type.title(), 
+                                               word_to_type, 
+                                               word_to_type)
+        build_a_parapgraph += " Type: {}.".format(word_info.part_of_language())
+
+        build_a_parapgraph += " Meaning: {}.".format("; ".join(word_info.definitions()))
+        build_a_parapgraph += " Examples: {}.".format("; ".join(word_info.sentences()))
+
+        self.type_stuff._type_paragraph(build_a_parapgraph)
+
+
     def _type_word_5_times(self, word_to_type):
-        print("Type the word 5 times without making a mistake:")
+        print("\nType the word 5 times without making a mistake:")
         counter = 0
         words_speeds = {}
         words_speeds[word_to_type] = []
@@ -105,7 +125,6 @@ class TypeQuick():
             counter += 1
             print(counter)
             try:
-                print("\nType:")
                 wpm = self.type_stuff.type_this_word(word_to_type)
                 words_speeds[word_to_type].append(wpm)
             except MisspelledWordException as e:

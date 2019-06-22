@@ -20,11 +20,13 @@ class TypeStuff():
     def type_this_word(self, word_to_review):
         return_chars = [' ', chr(13)]
 
-        print("'" + word_to_review + "'")
+        # print("'" + word_to_review + "'")
         input_char = self._get_single_char()
         time_word_start = time.time()
         input_word = "" + input_char
-        while input_char not in return_chars and input_word != word_to_review:
+        while word_to_review.startswith(input_word) \
+              and input_char not in return_chars \
+              and input_word != word_to_review:
             input_char = self._get_single_char()
             input_word += input_char
 
@@ -43,7 +45,7 @@ class TypeStuff():
 
 
     def _type_paragraph(self, paragraph_to_type):
-        print("Type the words below\n")
+        # print("Type the words below\n")
         time_str_start = time.time()
         misspelled_words = set([])
         words_speeds = {}
@@ -52,12 +54,13 @@ class TypeStuff():
             type_word_log_value = self.regex_log_word.findall(word_to_type.lower())[0]
             words_speeds[type_word_log_value] = []
 
-        paragraph_display = str(paragraph_to_type)
+        paragraph_display = "{}⏎".format(paragraph_to_type)
         display_offset = 0
+        print(paragraph_display)
         for idx, word_to_type in enumerate(split_words):
             while True:
                 type_word_log_value = self.regex_log_word.findall(word_to_type.lower())[0]
-                print(paragraph_display)
+                # print(paragraph_display)
 
                 if idx == len(split_words) - 1:
                     word_with_ending = word_to_type + "⏎"
@@ -71,7 +74,10 @@ class TypeStuff():
                 except MisspelledWordException as e:
                     print("\n!!Wrong Word:" + e.expected_word + ":" + e.actual_word + "::\n")
                     misspelled_words.add(type_word_log_value)
-                    paragraph_display = paragraph_to_type[display_offset:]
+                    paragraph_display = paragraph_display[display_offset:]
+                    display_offset = 0
+                    print(paragraph_display)
+
 
         else:
             time_str_stop = time.time()

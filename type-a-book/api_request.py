@@ -5,6 +5,15 @@ from api_oxford_dictionary import WordInfo
 
 class ApiRequest():
 
+    def word_info(self, word_to_request):
+        test_file_name = "../resources/api-requests/oxford-dictionary-example-1-awfully.json"
+        with open(test_file_name) as json_file:  
+            data = json.load(json_file)
+
+        word_info = WordInfo(data)
+
+        return word_info
+
     def unit_tests(self):
         # app_id = '9c810c40'
         # app_key = 'ca8f4511b7ebe8cc0cfc2518d6376e7a'
@@ -27,14 +36,9 @@ class ApiRequest():
 
         assert word_info.word() == word_id
         assert word_info.definitions() == {"very", "very badly or unpleasantly"}
-        print("\nWHAT\n{}\n".format(word_info.sentences()))
+        # print("\nWHAT\n{}\n".format(word_info.sentences()))
         assert word_info.sentences() == {"I'm awfully sorry to bother you so late", 
                                          "an awfully nice man",
                                          "we played awfully"}
         assert word_info.part_of_language() == "adverb"
 
-        assert 1 == 2
-
-        assert r.text == "ADVERB"
-        assert r.text == "very"
-        assert r.text == "we played awfully"
