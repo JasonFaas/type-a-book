@@ -2,15 +2,23 @@
 
 class WordInfo():
 
-    def __init__(self, data):
+    def __init__(self, status_code, data):
+        self.status_code = status_code
         self.word_info = data
 
-        p1 = self.word_info["results"][0]["lexicalEntries"][0]["entries"]
-        self.senses = p1[0]["senses"]
+        if status_code == 200:
+            p1 = self.word_info["results"]
+            p2 = p1[0]
+            p3 = p2["lexicalEntries"]
+            p4 = p3[0]
+            p5 = p4["entries"]
+            p6 = p5[0]
+            self.senses = p6["senses"]
 
     def verification(self):
+        if self.status_code != 200:
+            LookupError("Status code :{}: is not valid:\n:{}\n".format(self.status_code, self.word_info))
         # TODO so much possible here
-        raise NotImplementedError("WordInfo.verification not yet implemented")
 
     def word(self):
         return self.word_info["id"]
@@ -31,7 +39,7 @@ class WordInfo():
 
     def part_of_language(self):
         lexical_category = self.word_info["results"][0]["lexicalEntries"][0]["lexicalCategory"]["id"]
-        
+
 
         if not isinstance(lexical_category, str):
             print("Likely muliple Lexical Categories:" + str(lexical_category) + ":")
