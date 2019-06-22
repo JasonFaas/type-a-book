@@ -43,7 +43,7 @@ class TypeStuff():
 
 
     def _type_paragraph(self, paragraph_to_type):
-        print("Type the words below")
+        print("Type the words below\n")
         time_str_start = time.time()
         misspelled_words = set([])
         words_speeds = {}
@@ -86,11 +86,14 @@ class TypeStuff():
                 self.user_info.log_misspelled_words(misspelled_words)
                 print("\n")
 
-    def type_chapter(self, full_chapter):
-        paragraphs = full_chapter.split('\n')
-        for section in paragraphs:
+    def type_chapter(self, full_chapter_text, book_chosen, chapter_chosen, starting_index=0):
+        paragraphs = full_chapter_text.split('\n')
+        for idx, section in enumerate(paragraphs[starting_index:]):
             if len(section) > 1:
                 self._type_paragraph(section)
+                self.user_info.log_book_position(book_chosen, 
+                                                {"Chapter":chapter_chosen, 
+                                                 "Paragraph":1+idx+starting_index})
 
 
     def wpm_calc(self, time_start, time_stop, typed_word):

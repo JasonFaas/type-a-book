@@ -62,6 +62,16 @@ class UserInfo():
         f.close()
         return return_val
 
+    def remove_book_position(self, book_to_remove):
+        if not os.path.exists(self.book_positions_file_name):
+            return
+
+        book_positions = self.retreive_book_positions()
+        del book_positions[book_to_remove]
+
+        with open(self.book_positions_file_name, 'w') as file:
+             file.write(json.dumps(book_positions))
+
 
     def retreive_typing_speeds(self):
         if not os.path.exists(self.words_speeds_file_name):
@@ -84,7 +94,6 @@ class UserInfo():
             word_averages[word] = round(statistics.mean(speeds), 2)
 
         return word_averages
-
 
     def unit_tests(self):
         # misspelled words
@@ -142,4 +151,9 @@ class UserInfo():
         self.log_book_position("Starship_Troopers", expected_book_positions["Starship_Troopers"])
         actual_book_positions = self.retreive_book_positions()
         assert actual_book_positions == expected_book_positions
+        self.remove_book_position("Starship_Troopers")
+        del expected_book_positions["Starship_Troopers"]
+        actual_book_positions = self.retreive_book_positions()
+        assert actual_book_positions == expected_book_positions
+
 

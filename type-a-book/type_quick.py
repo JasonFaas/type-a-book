@@ -10,7 +10,7 @@ class TypeQuick():
         self.book_info = BookInfo()
 
     def short(self):
-        self.type_stuff._type_paragraph("“Oh, the quick and-the fast!")
+        self.type_stuff._type_paragraph("The quick and-the fast!")
 
     def long(self):
         self.type_stuff._type_paragraph("The quick brown fox jumps over the lazy dog. " + 
@@ -22,26 +22,48 @@ class TypeQuick():
             print("ASCII Value: " + str(ord(single_char)))
 
     def type_a_book(self):
-        print(self.book_info.book_list())
-        book_chosen = input("Choose book from above list:")
+        print(str(self.book_info.book_list()).replace("_", " "))
+        book_chosen = input("Choose book from above list:").replace(" ", "_")
         book_chapters = self.book_info.chapter_list(book_chosen)
         while len(book_chapters) == 0:
             print("Wrong choice '" + book_chosen + "'")
-            book_chosen = input("Choose book from above list:")
+            book_chosen = input("Choose book from above list:").replace(" ", "_")
             book_chapters = self.book_info.chapter_list(book_chosen)
 
         print("\nChapters")
         for chapter in book_chapters:
             print("\t" + chapter)
+
+        book_positions = self.user_info.retreive_book_positions()
+        print("\t" + "\"Start\"-Start at the begging?")
+        if book_chosen.replace(" ", "_") in book_positions:
+            print("\t" + "\"Resume\"-Continue at place you left off? # TODO Print Chapter and Paragraph")
+    
+
+        paragraph_chosen = 0
         chapter_chosen = input("Choose chapter from above list:")
-        while chapter_chosen not in book_chapters:
-            print("Wrong choice '" + chapter_chosen + "'")
-            chapter_chosen = input("Choose chapter from above list:")
 
-        # TODO read in book and print file
+        if chapter_chosen == "Start":
+            chapter_chosen = book_chapters[0]
+        elif chapter_chosen == "Resume":
+            book_pos_info = book_positions[book_chosen]
+            chapter_chosen = book_pos_info["Chapter"]
+            paragraph_chosen = book_positions[book_chosen.replace(" ", "_")]["Paragraph"]
+        else:
+            while chapter_chosen not in book_chapters:
+                print("Wrong choice '" + chapter_chosen + "'")
+                chapter_chosen = input("Choose chapter from above list:")
+
         full_chapter = self.book_info.chapter_of_book(book_chosen, chapter_chosen)
-        self.type_stuff.type_chapter(full_chapter)
+        self.type_stuff.type_chapter(full_chapter, book_chosen, chapter_chosen, paragraph_chosen)
 
+        next_chapter = book_chapters.index(chapter_chosen) + 1
+        if next_chapter == len(book_chapters):
+            self.user_info.remove_book_position(book_chosen)
+        else:    
+            self.user_info.log_book_position(book_chosen, 
+                                             {"Chapter":book_chapters[next_chapter], 
+                                              "Paragraph":0})
 
 
     def review_misspelled(self):
