@@ -81,16 +81,19 @@ class TypeQuick():
 
 
     def review_slowest_word(self):
-        averages = self.user_info.retreive_typing_speeds_averages()
-        print("Average speeds:" + str(averages))
-        slowest_word = min(averages, key=averages.get)
-        print("Slowest word:" + slowest_word + " " + str(averages[slowest_word]) + " wpm")
+        before_averages = self.user_info.retreive_typing_speeds_averages()
+        print("Average speeds:" + str(before_averages))
+        
+        before_slowest_word = min(before_averages, key=before_averages.get)
+        print("Slowest word:" + before_slowest_word + " " + str(before_averages[before_slowest_word]) + " wpm")
 
-        self._type_word_5_times(slowest_word)
+        self._type_word_5_times(before_slowest_word)
 
-        new_averages = self.user_info.retreive_typing_speeds_averages()
-        new_slowest_word = min(new_averages, key=new_averages.get)
-        print("New slowest_word word:" + new_slowest_word + " " + str(averages[new_slowest_word]) + " wpm")
+        after_averages = self.user_info.retreive_typing_speeds_averages()
+        print(before_slowest_word + " improved from " + str(before_averages[before_slowest_word]) + " to " + str(after_averages[before_slowest_word]))
+
+        new_slowest_word = min(after_averages, key=after_averages.get)
+        print("New slowest_word word:" + new_slowest_word + " " + str(before_averages[new_slowest_word]) + " wpm")
 
 
     def _type_word_5_times(self, word_to_type):

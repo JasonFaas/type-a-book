@@ -21,14 +21,14 @@ class TypeStuff():
         return_chars = [' ', chr(13)]
 
         print("'" + word_to_review + "'")
+        input_char = self._get_single_char()
         time_word_start = time.time()
-        input_char = ''
-        input_word = ''
+        input_word = "" + input_char
         while input_char not in return_chars and input_word != word_to_review:
             input_char = self._get_single_char()
             input_word += input_char
-        else:
-            time_word_stop = time.time()
+
+        time_word_stop = time.time()
 
         input_word = input_word.replace(str(chr(13)), "⏎")
         if input_word != word_to_review:
