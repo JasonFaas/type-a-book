@@ -19,7 +19,7 @@ def main():
                         "\n\t\t1: Start typing - 6 words" +
                         "\n\t\t2: Start typing - 2 sentences" +
                         "\n\t\t3: Value of each character" +
-                        "\n\t\tA: Type A Book - TODO: Implemente!" +
+                        "\n\n\t\tA: Type A Book" +
                         "\n\t\tB: Review misspelled words" +
                         "\n\t\tC: Improve slower words" +
                         "\n\t\tD: Learn recent word - TODO: Implemente!" +

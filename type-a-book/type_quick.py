@@ -25,7 +25,12 @@ class TypeQuick():
             print("ASCII Value: " + str(ord(single_char)))
 
     def type_a_book(self):
-        print(str(self.book_info.book_list()).replace("_", " "))
+        print("Books:")
+        print("\tHunger Games")
+
+        print("\t" + "\n\t".join(self.book_info.book_list()).replace("_", " "))
+
+        # print(str(self.book_info.book_list()).replace("_", " "))
         book_chosen = input("Choose book from above list:").replace(" ", "_")
         book_chapters = self.book_info.chapter_list(book_chosen)
         while len(book_chapters) == 0:
@@ -41,7 +46,6 @@ class TypeQuick():
         print("\t" + "\"Start\"-Start at the begging?")
         if book_chosen.replace(" ", "_") in book_positions:
             print("\t" + "\"Resume\"-Continue at place you left off? # TODO Print Chapter and Paragraph")
-    
 
         paragraph_chosen = 0
         chapter_chosen = input("Choose chapter from above list:")
@@ -58,6 +62,9 @@ class TypeQuick():
                 chapter_chosen = input("Choose chapter from above list:")
 
         full_chapter = self.book_info.chapter_of_book(book_chosen, chapter_chosen)
+
+        print("Starting to type {} at Chapter {} Paragraph {}.\n".format(book_chosen, chapter_chosen, paragraph_chosen))
+
         self.type_stuff.type_chapter(full_chapter, book_chosen, chapter_chosen, paragraph_chosen)
 
         next_chapter = book_chapters.index(chapter_chosen) + 1
