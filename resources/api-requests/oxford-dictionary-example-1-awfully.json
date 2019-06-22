@@ -1,0 +1,120 @@
+{
+    "id": "awfully",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "awfully",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "very"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "I'm awfully sorry to bother you so late"
+                                        },
+                                        {
+                                            "text": "an awfully nice man"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0061720.006",
+                                    "notes": [
+                                        {
+                                            "text": "as submodifier",
+                                            "type": "grammaticalNote"
+                                        }
+                                    ],
+                                    "registers": [
+                                        {
+                                            "id": "informal",
+                                            "text": "Informal"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "very"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "very much"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "thanks awfully for the tea, Mr Oakley"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0061720.008",
+                                            "shortDefinitions": [
+                                                "very much"
+                                            ],
+                                            "thesaurusLinks": [
+                                                {
+                                                    "entry_id": "awfully",
+                                                    "sense_id": "t_en_gb0001048.003"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "awfully",
+                                            "sense_id": "t_en_gb0001048.001"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "very badly or unpleasantly"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "we played awfully"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0061720.010",
+                                    "shortDefinitions": [
+                                        "very badly or unpleasantly"
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "awfully",
+                                            "sense_id": "t_en_gb0001048.002"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "adverb",
+                        "text": "Adverb"
+                    },
+                    "pronunciations": [
+                        {
+                            "audioFile": "http://audio.oxforddictionaries.com/en/mp3/awfully_gb_2.mp3",
+                            "dialects": [
+                                "British English"
+                            ],
+                            "phoneticNotation": "IPA",
+                            "phoneticSpelling": "ˈɔːfʊli"
+                        }
+                    ],
+                    "text": "awfully"
+                }
+            ],
+            "type": "headword",
+            "word": "awfully"
+        }
+    ],
+    "word": "awfully"
+}
