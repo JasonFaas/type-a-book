@@ -1,4 +1,4 @@
-
+from book_info import BookInfo
 
 class WordInfo():
 
@@ -17,7 +17,7 @@ class WordInfo():
 
     def verification(self):
         if self.status_code != 200:
-            LookupError("Status code :{}: is not valid:\n:{}\n".format(self.status_code, self.word_info))
+            raise LookupError("Status code :{}: is not valid:\n:{}\n".format(self.status_code, self.word_info))
         # TODO so much possible here
 
     def word(self):
@@ -27,14 +27,23 @@ class WordInfo():
         definition_set = set()
         for definition_group in self.senses:
             for definition in definition_group["definitions"]:
+                if definition[-1] == ".":
+                    definition = definition[:-1]
                 definition_set.add(definition)
         return definition_set
 
     def sentences(self):
         sentence_set = set()
         for sentence_group in self.senses:
-            for examples in sentence_group["examples"]:
-                sentence_set.add(examples["text"])
+            if "examples" in sentence_group:
+                for idx, examples in enumerate(sentence_group["examples"]):
+                    complete_sentence = "{}".format(examples["text"].capitalize())
+                    if complete_sentence[-1] != ".":
+                        complete_sentence += "."
+                    BookInfo.verify_legal_characters(complete_sentence)
+                    sentence_set.add(complete_sentence)
+                    if idx == 1:
+                        break
         return sentence_set
 
     def part_of_language(self):
@@ -49,3 +58,15 @@ class WordInfo():
 
     def audio_pronunciation_link(self):
         raise NotImplementedError("WordInfo.audio_pronunciation_link not yet implemented")
+
+    def __str__(self):
+        print_dict = {}
+        print_dict["status_code"] = self.status_code
+        print_dict["word"] = self.word()
+        print_dict["type"] = self.part_of_language()
+        if self.status_code == 200:
+            print_dict["definitions"] = self.definitions()
+            print_dict["sentences"] = self.sentences()
+
+        return str(print_dict)
+

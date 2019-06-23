@@ -84,9 +84,13 @@ class TypeQuick():
         print("{} words to review".format(len(to_review)))
         # print(to_review)
 
-        # TODO: decide which review type is best
-        # self._type_word_5_times(to_review[0])
-        self._review_with_definition(to_review[0])
+        try:
+            print("Looking up '{}' online".format(to_review[0]))
+            self._review_with_definition(to_review[0])
+        except LookupError as e: 
+            print(e)
+            print("'{}' not found online".format(to_review[0]))
+            self._type_word_5_times(to_review[0])
         
         self.user_info.remove_misspelled_word(to_review[0])
 
@@ -108,9 +112,9 @@ class TypeQuick():
 
 
     def _review_with_definition(self, word_to_type):
-        print("Review '{}' by typing the word and definition without making a mistake:\n".format(word_to_type))
 
         word_info = self.api_request.word_info(word_to_type)
+        print("Review '{}' by typing the word and definition:\n".format(word_to_type))
 
         build_a_parapgraph = "{} {} {}.".format(word_to_type.title(), 
                                                word_to_type, 
@@ -118,13 +122,17 @@ class TypeQuick():
         build_a_parapgraph += " Type: {}.".format(word_info.part_of_language())
 
         build_a_parapgraph += " Meaning: {}.".format("; ".join(word_info.definitions()))
-        build_a_parapgraph += " Examples: {}.".format("; ".join(word_info.sentences()))
+        build_a_parapgraph += " Examples: {}".format(" ".join(word_info.sentences()))
+
+        build_a_parapgraph += " {} {} {}".format(word_to_type.upper(), 
+                                               word_to_type, 
+                                               word_to_type)
 
         self.type_stuff._type_paragraph(build_a_parapgraph)
 
 
     def _type_word_5_times(self, word_to_type):
-        print("\nType the word 5 times without making a mistake:")
+        print("\nType '{}' 5 times without making a mistake:".format(word_to_type))
         counter = 0
         words_speeds = {}
         words_speeds[word_to_type] = []

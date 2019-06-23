@@ -1,0 +1,280 @@
+{
+    "id": "lady",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "lady",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "derivatives": [
+                        {
+                            "id": "ladyhood",
+                            "text": "ladyhood"
+                        }
+                    ],
+                    "entries": [
+                        {
+                            "etymologies": [
+                                "Old English hlǣfdīge (denoting a woman to whom homage or obedience is due, such as the wife of a lord, also specifically the Virgin Mary), from hlāf ‘loaf’ + a Germanic base meaning ‘knead’, related to dough; compare with lord. In Lady Day and other compounds where it signifies possession, it represents the Old English genitive hlǣfdīgan ‘(Our) Lady's’"
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "a polite or formal way of referring to a woman"
+                                    ],
+                                    "id": "m_en_gbus0560640.006",
+                                    "shortDefinitions": [
+                                        "polite way of referring to woman"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "used as a courteous designation for a female fellow member of the House of Commons"
+                                            ],
+                                            "domains": [
+                                                {
+                                                    "id": "parliament",
+                                                    "text": "Parliament"
+                                                }
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "the Right Honourable Lady promised me her support"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0560640.009",
+                                            "shortDefinitions": [
+                                                "designation for female fellow member of House of Commons"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "used as an informal, often brusque, form of address to a woman"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "I'm sorry, lady, but you have the wrong number"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0560640.010",
+                                            "regions": [
+                                                {
+                                                    "id": "north_american",
+                                                    "text": "North_American"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "informal form of address to woman"
+                                            ]
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lady",
+                                            "sense_id": "t_en_gb0008506.001"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "a woman of good social position"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "lords and ladies were once entertained at the house"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0560640.012",
+                                    "shortDefinitions": [
+                                        "woman of good social position"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "a courteous, decorous, or genteel woman"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "his wife was a real lady, with such nice manners"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0560640.013",
+                                            "shortDefinitions": [
+                                                "courteous or genteel woman"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "(in the UK) a title used by peeresses, female relatives of peers, the wives and widows of knights, etc."
+                                            ],
+                                            "domains": [
+                                                {
+                                                    "id": "title",
+                                                    "text": "Title"
+                                                }
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "Lady Caroline Lamb"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0560640.014",
+                                            "shortDefinitions": [
+                                                "title used by peeresses etc."
+                                            ],
+                                            "variantForms": [
+                                                {
+                                                    "text": "Lady"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "a woman at the head of a household"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "a portrait of the lady of the house"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0560640.017",
+                                            "shortDefinitions": [
+                                                "woman at head of household"
+                                            ]
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lady",
+                                            "sense_id": "t_en_gb0008506.002"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "a man's wife"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "the vice president and his lady"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0560640.019",
+                                    "notes": [
+                                        {
+                                            "text": "\"one's lady\"",
+                                            "type": "wordFormNote"
+                                        }
+                                    ],
+                                    "registers": [
+                                        {
+                                            "id": "dated",
+                                            "text": "Dated"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "man's wife"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "a female lover or girlfriend"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "the young man bought a rose for his lady"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0560640.021",
+                                            "registers": [
+                                                {
+                                                    "id": "dated",
+                                                    "text": "Dated"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "female lover"
+                                            ],
+                                            "thesaurusLinks": [
+                                                {
+                                                    "entry_id": "girlfriend",
+                                                    "sense_id": "t_en_gb0006343.001"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "a woman to whom a man, especially a knight, is chivalrously devoted."
+                                            ],
+                                            "id": "m_en_gbus0560640.022",
+                                            "registers": [
+                                                {
+                                                    "id": "historical",
+                                                    "text": "Historical"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "woman to whom man is chivalrously devoted"
+                                            ]
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "old_woman",
+                                            "sense_id": "t_en_gb0010280.016"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "a women's public toilet."
+                                    ],
+                                    "id": "m_en_gbus0560640.024",
+                                    "notes": [
+                                        {
+                                            "text": "\"the ladies\"",
+                                            "type": "wordFormNote"
+                                        }
+                                    ],
+                                    "regions": [
+                                        {
+                                            "id": "british",
+                                            "text": "British"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "women's public toilet"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "noun",
+                        "text": "Noun"
+                    },
+                    "pronunciations": [
+                        {
+                            "audioFile": "http://audio.oxforddictionaries.com/en/mp3/lady_gb_1.mp3",
+                            "dialects": [
+                                "British English"
+                            ],
+                            "phoneticNotation": "IPA",
+                            "phoneticSpelling": "ˈleɪdi"
+                        }
+                    ],
+                    "text": "lady"
+                }
+            ],
+            "type": "headword",
+            "word": "lady"
+        }
+    ],
+    "word": "lady"
+}

@@ -43,9 +43,12 @@ class BookInfo():
         for book in self.book_list():
             for chapter in self.chapter_list(book):
                 text = self.chapter_of_book(book, chapter)
-                for char in text:
-                    if ord(char) > 127:
-                        print(ord(char))
-                    assert ord(char) < 127
+                BookInfo.verify_legal_characters(text)
 
 
+    @staticmethod
+    def verify_legal_characters(text):
+        for char in text:
+            if ord(char) > 127:
+                print("Bad value {}".format(ord(char)))
+                raise AttributeError("Value of {} greater than 126 {}".format(char, ord(char)))
