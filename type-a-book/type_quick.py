@@ -97,7 +97,13 @@ class TypeQuick():
 
     def review_slowest_word(self):
         before_averages = self.user_info.retreive_typing_speeds_averages()
-        print("Average speeds:" + str(before_averages))
+
+        values = before_averages.values()
+        print(" 100+ WPM Word count: {}".format(len(list(x for x in values if 100 < x < 1000))))
+        print("75-99 WPM Word count: {}".format(len(list(x for x in values if 75 < x < 100))))
+        print("50-74 WPM Word count: {}".format(len(list(x for x in values if 50 < x < 75))))
+        print(" 0-49 WPM Word count: {}".format(len(list(x for x in values if 1 < x < 50))))
+        # print("Average speeds:" + str(before_averages))
         
         before_slowest_word = min(before_averages, key=before_averages.get)
         print("Slowest word:" + before_slowest_word + " " + str(before_averages[before_slowest_word]) + " wpm")
