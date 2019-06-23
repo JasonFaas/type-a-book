@@ -1,0 +1,149 @@
+{
+    "id": "could",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "could",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "grammaticalFeatures": [
+                                {
+                                    "id": "modal",
+                                    "text": "Modal",
+                                    "type": "Event Modality"
+                                },
+                                {
+                                    "id": "auxiliary",
+                                    "text": "Auxiliary",
+                                    "type": "Verb"
+                                }
+                            ],
+                            "notes": [
+                                {
+                                    "text": "For a discussion on the use of could of instead of could have, see have",
+                                    "type": "editorialNote"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "crossReferenceMarkers": [
+                                        "past of can"
+                                    ],
+                                    "crossReferences": [
+                                        {
+                                            "id": "can",
+                                            "text": "can",
+                                            "type": "see also"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0224930.008",
+                                    "shortDefinitions": [
+                                        "past of can"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "used to indicate possibility"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "they could be right"
+                                                },
+                                                {
+                                                    "text": "I would go if I could afford it"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0224930.010",
+                                            "shortDefinitions": [
+                                                "indicating possibility"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "used in making suggestions or polite requests"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "you could always ring him up"
+                                                },
+                                                {
+                                                    "text": "could I use the phone?"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0224930.011",
+                                            "shortDefinitions": [
+                                                "making suggestions or polite requests"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "used to indicate annoyance because of something that has not been done"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "they could have told me!"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0224930.013",
+                                            "shortDefinitions": [
+                                                "indicating annoyance"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "used to indicate a strong inclination to do something"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "he irritates me so much that I could scream"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0224930.014",
+                                            "shortDefinitions": [
+                                                "indicating strong inclination"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "verb",
+                        "text": "Verb"
+                    },
+                    "pronunciations": [
+                        {
+                            "audioFile": "http://audio.oxforddictionaries.com/en/mp3/could_gb_4.mp3",
+                            "dialects": [
+                                "British English"
+                            ],
+                            "phoneticNotation": "IPA",
+                            "phoneticSpelling": "kəd"
+                        },
+                        {
+                            "audioFile": "http://audio.oxforddictionaries.com/en/mp3/could_gb_4.mp3",
+                            "dialects": [
+                                "British English"
+                            ],
+                            "phoneticNotation": "IPA",
+                            "phoneticSpelling": "kʊd"
+                        }
+                    ],
+                    "text": "could"
+                }
+            ],
+            "type": "headword",
+            "word": "could"
+        }
+    ],
+    "word": "could"
+}

@@ -11,15 +11,22 @@ class WordInfo():
             p1 = self.word_info["results"]
             p2 = p1[0]
             p3 = p2["lexicalEntries"]
-            p4 = p3[0]
-            p5 = p4["entries"]
+            self.lexical_entries = p3[0]
+            p5 = self.lexical_entries["entries"]
             p6 = p5[0]
             self.senses = p6["senses"]
+
+        self.end_of_sentence_chars = {".", "?", "!"}
 
     def verification(self):
         if self.status_code != 200:
             raise LookupError("Status code :{}: is not valid:\n:{}\n".format(self.status_code, self.word_info))
-        # TODO so much possible here
+    
+    def derivative_of(self):
+        if "derivativeOf" in self.lexical_entries:
+            return self.lexical_entries["derivativeOf"][0]["id"]
+        return ""
+        # raise LookupError("Word '{}' is not derivative of any other".format(self.word()))
 
     def word(self):
         return self.word_to_lookup
@@ -27,10 +34,22 @@ class WordInfo():
     def definitions(self):
         definition_set = set()
         for definition_group in self.senses:
-            for definition in definition_group["definitions"]:
-                if definition[-1] == ".":
-                    definition = definition[:-1]
-                definition_set.add(definition)
+            if "definitions" in definition_group:
+                for definition in definition_group["definitions"]:
+                    if definition[-1] == ".":
+                        definition = definition[:-1]
+                    definition_set.add(definition)
+
+        if len(definition_set) == 0:
+            for subsenses_group in self.senses:
+                if "subsenses" in subsenses_group:
+                    for subsenses in subsenses_group["subsenses"]:
+                        if "definitions" in subsenses:
+                            for definition in subsenses["definitions"]:
+                                if definition[-1] == ".":
+                                    definition = definition[:-1]
+                                definition_set.add(definition)
+
         return definition_set
 
     def sentences(self):
@@ -39,12 +58,28 @@ class WordInfo():
             if "examples" in sentence_group:
                 for idx, examples in enumerate(sentence_group["examples"]):
                     complete_sentence = "{}".format(examples["text"].capitalize())
-                    if complete_sentence[-1] != ".":
+                    complete_sentence = complete_sentence.replace(chr(8212), '-')
+                    if complete_sentence[-1] not in self.end_of_sentence_chars:
                         complete_sentence += "."
                     BookInfo.verify_legal_characters(complete_sentence)
                     sentence_set.add(complete_sentence)
                     if idx == 1:
                         break
+
+        if len(sentence_set) == 0:
+            for subsenses_group in self.senses:
+                if "subsenses" in subsenses_group:
+                    for sentence_group in subsenses_group["subsenses"]:
+                        if "examples" in sentence_group:
+                            for idx, examples in enumerate(sentence_group["examples"]):
+                                complete_sentence = "{}".format(examples["text"].capitalize())
+                                if complete_sentence[-1] not in self.end_of_sentence_chars:
+                                    complete_sentence += "."
+                                BookInfo.verify_legal_characters(complete_sentence)
+                                sentence_set.add(complete_sentence)
+                                if idx == 1:
+                                    break
+
         return sentence_set
 
     def part_of_language(self):

@@ -124,6 +124,11 @@ class TypeQuick():
         build_a_parapgraph += " Meaning: {}.".format("; ".join(word_info.definitions()))
         build_a_parapgraph += " Examples: {}".format(" ".join(word_info.sentences()))
 
+        derivative = word_info.derivative_of()
+        if derivative != "":
+            derivative_info = self.api_request.word_info(derivative)
+            build_a_parapgraph += " Derivative info: {} is derivative of {}. Derivative meaning: {}.".format(word_to_type, derivative, "; ".join(derivative_info.definitions()))
+
         build_a_parapgraph += " {} {} {}".format(word_to_type.upper(), 
                                                word_to_type, 
                                                word_to_type)

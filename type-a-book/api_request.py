@@ -50,6 +50,8 @@ class ApiRequest():
 
         word_id = 'unpleasantly'
         word_info_hc_unpleasantly = self.word_info_hc(word_id)
+        assert len(word_info_hc_unpleasantly.definitions()) == 0
+        assert word_info_hc_unpleasantly.derivative_of() == "unpleasant"
         print(word_info_hc_unpleasantly)
 
         word_id = 'lady'
@@ -61,6 +63,12 @@ class ApiRequest():
         word_info_hc_whatekker = self.word_info_hc(word_id, 404)
         print(word_info_hc_whatekker)
         assert word_info_hc_whatekker.general_error() == "No entry found matching supplied source_lang, word and provided filters"
+
+        word_id = 'could'
+        word_info_hc_could = self.word_info_hc(word_id)
+        assert len(word_info_hc_could.definitions()) > 0
+        assert len(word_info_hc_could.sentences()) > 0
+        print(word_info_hc_could)
         
         # Good api lookup test (expensive)
         # word_id = 'awfully'
