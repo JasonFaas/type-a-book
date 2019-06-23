@@ -19,12 +19,12 @@ class ApiRequest():
     def word_info(self, word_to_request):
         return self.word_info_api(word_to_request)
 
-    def word_info_hc(self, word_to_request):
+    def word_info_hc(self, word_to_request, status_code = 200):
         test_file_name = "../resources/api-requests/oxford-dictionary-example-{}.json".format(word_to_request)
         with open(test_file_name) as json_file:  
             data = json.load(json_file)
 
-        word_info = WordInfo(200, data)
+        word_info = WordInfo(status_code, data, word_to_request)
 
         return word_info
 
@@ -36,7 +36,7 @@ class ApiRequest():
         print("text \n" + r.text)
         # print("json \n" + json.dumps(r.json()))
         # assert r.status_code == 200
-        return_word_info = WordInfo(r.status_code, r.json())
+        return_word_info = WordInfo(r.status_code, r.json(), word_to_request)
         return_word_info.verification()
 
         return return_word_info
@@ -48,12 +48,22 @@ class ApiRequest():
         print(word_info_hc_awfully)
         self.unit_test_helper_awfully(word_info_hc_awfully)
 
+        word_id = 'unpleasantly'
+        word_info_hc_unpleasantly = self.word_info_hc(word_id)
+        print(word_info_hc_unpleasantly)
+
         word_id = 'lady'
         word_info_hc_lady = self.word_info_hc(word_id)
         print(word_info_hc_lady)
         self.unit_test_helper_lady(word_info_hc_lady)
+
+        word_id = 'whatekker'
+        word_info_hc_whatekker = self.word_info_hc(word_id, 404)
+        print(word_info_hc_whatekker)
+        assert word_info_hc_whatekker.general_error() == "No entry found matching supplied source_lang, word and provided filters"
         
         # Good api lookup test (expensive)
+        # word_id = 'awfully'
         # word_info_api_result = self.word_info_api(word_id)
         # self.unit_test_helper_awfully(word_info_api_result)
 
@@ -63,6 +73,7 @@ class ApiRequest():
         #     assert False
         # except LookupError as e:
         #     assert str(e).startswith("Status code :{}: is not valid:".format(404))
+        # assert word_info_hc_whatekker.general_error() == "No entry found matching supplied source_lang, word and provided filters"
 
     def unit_test_helper_awfully(self, awfully_info):
         assert awfully_info.word() == 'awfully'

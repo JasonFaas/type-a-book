@@ -2,7 +2,8 @@ from book_info import BookInfo
 
 class WordInfo():
 
-    def __init__(self, status_code, data):
+    def __init__(self, status_code, data, word):
+        self.word_to_lookup = word
         self.status_code = status_code
         self.word_info = data
 
@@ -21,7 +22,7 @@ class WordInfo():
         # TODO so much possible here
 
     def word(self):
-        return self.word_info["id"]
+        return self.word_to_lookup
 
     def definitions(self):
         definition_set = set()
@@ -59,14 +60,19 @@ class WordInfo():
     def audio_pronunciation_link(self):
         raise NotImplementedError("WordInfo.audio_pronunciation_link not yet implemented")
 
+    def general_error(self):
+        return self.word_info["error"]
+
     def __str__(self):
         print_dict = {}
         print_dict["status_code"] = self.status_code
         print_dict["word"] = self.word()
-        print_dict["type"] = self.part_of_language()
         if self.status_code == 200:
             print_dict["definitions"] = self.definitions()
             print_dict["sentences"] = self.sentences()
+            print_dict["type"] = self.part_of_language()
+        else:
+            print_dict["error"] = self.general_error()
 
         return str(print_dict)
 
