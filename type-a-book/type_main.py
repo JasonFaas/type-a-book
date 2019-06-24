@@ -35,36 +35,38 @@ def main():
         input_char = readchar.readchar().lower()
         start_typing = TypeQuick(user_name)
 
-        if input_char == '1':
-            print("Quick Type!")
-            start_typing.short()
-        elif input_char == '2':
-            print("Long Type!")
-            start_typing.long()
-        elif input_char == '3':
-            print("Character Interogate!")
-            try:
-                start_typing.print_char_info()
-            except Exception as e:
-                print("Threw established excpetion:\n\t" + str(e))
-        elif input_char == 'a':
-            print("Type-A-Book!")
-            start_typing.type_a_book()
-        elif input_char == 'b':
-            print("Reviewing misspelled words!")
-            start_typing.review_misspelled()
-        elif input_char == 'c':
-            print("Improve slower words!")
-            start_typing.review_slowest_word()
-        elif input_char == 'd':
-            print("Should write learn new words!")
-            print("Look through slow or less than 5 entries or just recent words!")
-        elif input_char == 'q':
-            print("Exiting!")
-            exit()
-        else:
-            print("Invalid input")
-
+        try:
+            if input_char == '1':
+                print("Quick Type!")
+                start_typing.short()
+            elif input_char == '2':
+                print("Long Type!")
+                start_typing.long()
+            elif input_char == '3':
+                print("Character Interogate!")
+                try:
+                    start_typing.print_char_info()
+                except GeneratorExit as e:
+                    print("Threw established excpetion:\n\t" + str(e))
+            elif input_char == 'a':
+                print("Type-A-Book!")
+                start_typing.type_a_book()
+            elif input_char == 'b':
+                print("Reviewing misspelled words!")
+                start_typing.review_misspelled()
+            elif input_char == 'c':
+                print("Improve slower words!")
+                start_typing.review_slowest_word()
+            elif input_char == 'd':
+                print("Should write learn new words!")
+                print("Look through slow or less than 5 entries or just recent words!")
+            elif input_char == 'q' or input_char == chr(3):
+                print("Exiting!")
+                exit()
+            else:
+                print("Invalid input")
+        except KeyboardInterrupt as e:
+            print("\nReturn to main menu")
 
 
 if __name__ == "__main__":

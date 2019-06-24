@@ -14,7 +14,9 @@ class TypeStuff():
     def _get_single_char(self):
         input_char = readchar.readchar()
         if ord(input_char) == 3:
-            raise Exception("Contrl+C Detected")
+            raise GeneratorExit("Contrl+C Detected")
+        elif ord(input_char) == 17:
+            raise KeyboardInterrupt("Contrl+Q Detected")
         return input_char
 
     def type_this_word(self, word_to_review):
@@ -38,8 +40,8 @@ class TypeStuff():
         else:
             word_wpm = self.wpm_calc(time_word_start, time_word_stop, word_to_review)
             
-            type_word_log_value = self.regex_log_word.findall(word_to_review.lower())[0]
-            self.user_info.log_words_typing_speeds({type_word_log_value:[word_wpm]})
+            # type_word_log_value = self.regex_log_word.findall(word_to_review.lower())[0]
+            # self.user_info.log_words_typing_speeds({type_word_log_value:[word_wpm]})
 
         return word_wpm
 
@@ -51,8 +53,7 @@ class TypeStuff():
         words_speeds = {}
         split_words = paragraph_to_type.split(" ")
         for word_to_type in split_words:
-            type_word_log_value = self.regex_log_word.findall(word_to_type.lower())[0]
-            words_speeds[type_word_log_value] = []
+            words_speeds[word_to_type] = []
 
         paragraph_display = "{}⏎".format(paragraph_to_type)
         display_offset = 0
@@ -68,7 +69,7 @@ class TypeStuff():
                     word_with_ending = word_to_type + " "
                 try:
                     wpm = self.type_this_word(word_with_ending)
-                    words_speeds[type_word_log_value].append(wpm)
+                    words_speeds[word_to_type].append(wpm)
                     display_offset += len(word_with_ending)
                     break
                 except MisspelledWordException as e:
