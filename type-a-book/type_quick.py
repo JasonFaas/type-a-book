@@ -154,7 +154,7 @@ class TypeQuick():
                 wpm = self.type_stuff.type_this_word(word_to_type)
                 words_speeds[word_to_type].append(wpm)
             except MisspelledWordException as e:
-                print("What happened?:" + e.expected_word + ":" + e.actual_word)
+                print("What happened?: " + e.expected_word + " : " + e.actual_word + " :")
                 counter = 0
         else:
             self.user_info.log_words_typing_speeds(words_speeds)
