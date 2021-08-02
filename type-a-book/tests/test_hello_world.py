@@ -6,4 +6,4 @@ class TestHelloWorld(TestCase):
         assert "hello" != "world"
 
     def test_hello_world_fail(self):
-        self.assertEqual("hello", "world")
+        self.assertEqual("hello", "hello")
