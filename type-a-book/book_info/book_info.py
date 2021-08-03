@@ -7,23 +7,22 @@ class BookInfo():
         subfolders = [f.name for f in os.scandir(folder) if f.is_dir() ]
         return subfolders
 
+
+    def array_first_instance(self, array_to_search, search_for, start_idx):
+        return_idx = start_idx
+        while not array_to_search[return_idx] == search_for:
+            return_idx += 1
+
+        assert return_idx < len(array_to_search) - 2, "Invalid search {}".format(search_for)
+
+        return return_idx
+
+
     def chapter_list_new(self, book_name):
-        book_file_name = self.book_file_name(book_name)
-        with open("{}/{}".format(self.path_for_book(book_name), book_file_name), 'r') as file:
-            data = file.read()
+        book_by_line = self.contents_of_book_array(book_name)
 
-        book_by_line = data.split('\n')
-        contents_line_idx = 0
-        while not book_by_line[contents_line_idx].startswith("Contents"):
-            contents_line_idx += 1
-        if contents_line_idx > len(book_by_line) / 2:
-            return ""
-
-        last_chapter_idx = contents_line_idx + 2
-        while not book_by_line[last_chapter_idx] == "":
-            last_chapter_idx += 1
-        if last_chapter_idx > len(book_by_line) / 2:
-            return ""
+        contents_line_idx = self.array_first_instance(array_to_search=book_by_line, search_for="Contents", start_idx=0)
+        last_chapter_idx = self.array_first_instance(array_to_search=book_by_line, search_for="", start_idx=contents_line_idx + 2)
 
         chapters_unformatted = book_by_line[contents_line_idx + 2:last_chapter_idx]
 
@@ -31,6 +30,21 @@ class BookInfo():
             chapters_unformatted[idx] = chapters_unformatted[idx][1:]
 
         return chapters_unformatted
+
+    def contents_of_book_array(self, book_name):
+        book_file_name = self.book_file_name(book_name)
+        with open("{}/{}".format(self.path_for_book(book_name), book_file_name), 'r') as file:
+            data = file.read()
+        book_by_line = data.split('\n')
+        return book_by_line
+
+    def paragraph_of_book_new(self, book_name, chapter_name, paragraph):
+        book_by_line = self.contents_of_book_array(book_name)
+        chapter_list = self.chapter_list_new(book_name)
+        pass
+        # for
+
+
 
     def book_file_name(self, book_name):
         folder = "../resources/books/project_gutenberg/{}".format(book_name)
@@ -68,3 +82,4 @@ class BookInfo():
             if ord(char) > 127:
                 print("Bad value {}".format(ord(char)))
                 raise AttributeError("Value of {} greater than 126 {}".format(char, ord(char)))
+
