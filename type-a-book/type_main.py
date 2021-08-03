@@ -1,12 +1,16 @@
-import time
-import pprint
 import readchar
 
 from type_quick import TypeQuick
 from type_stuff import TypeStuff
 from user_info import UserInfo
-from book_info import BookInfo
+from book_info.book_info import BookInfo
 from api_request import ApiRequest
+from tests.test_book_info import TestBookInfo
+import tests.test_book_info
+
+from unittest import TestCase
+import unittest
+
 
 
 def main():
@@ -72,6 +76,13 @@ def main():
 if __name__ == "__main__":
     TypeStuff("Unit_Tests").unit_tests()
     UserInfo("Unit_Tests").unit_tests()
-    BookInfo().unit_tests()
+
+    suite = unittest.TestLoader().loadTestsFromModule(tests.test_book_info)
+    run = unittest.TextTestRunner(verbosity=2).run(suite)
+    assert len(run.failures) == 0, run.failures
+    assert len(run.errors) == 0, run.errors
+
+
+
     ApiRequest().unit_tests()
     main()

@@ -117,7 +117,4 @@ class TypeStuff():
                         ["what-the.", "what-the"]]
         for word, expected_word in regex_verify:
             actual_regex = self.regex_log_word.findall(word)[0]
-            if actual_regex != expected_word:
-                print(actual_regex)
-                print(expected_word)
-            assert actual_regex == expected_word        
+            assert actual_regex == expected_word, "{} != {}".format(actual_regex, expected_word)

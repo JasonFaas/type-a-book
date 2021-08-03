@@ -1,4 +1,4 @@
-from book_info import BookInfo
+from book_info.book_info import BookInfo
 
 class WordInfo():
 

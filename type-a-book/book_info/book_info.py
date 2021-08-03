@@ -1,5 +1,4 @@
 import os
-from glob import glob
 
 class BookInfo():
 
@@ -26,25 +25,6 @@ class BookInfo():
         data = data.replace(chr(8220), "\"").replace(chr(8221), "\"")
 
         return data
-
-
-    def unit_tests(self):
-        assert self.book_list() == ['Peter_Pan']
-
-        assert self.chapter_list("Peter_Pan") == ["00A-Intro",
-                                                  "01-Chapter_1",
-                                                  "02-Chapter_2",
-                                                  "03-Chapter_3"]
-
-        self.verify_all_books_all_legal_characters()
-
-    def verify_all_books_all_legal_characters(self):
-        # TODO make this more efficient
-        for book in self.book_list():
-            for chapter in self.chapter_list(book):
-                text = self.chapter_of_book(book, chapter)
-                BookInfo.verify_legal_characters(text)
-
 
     @staticmethod
     def verify_legal_characters(text):

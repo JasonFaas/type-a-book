@@ -1,4 +1,4 @@
-from book_info import BookInfo
+from book_info.book_info import BookInfo
 from type_exceptions import MisspelledWordException
 from type_stuff import TypeStuff
 from user_info import UserInfo
@@ -26,11 +26,8 @@ class TypeQuick():
 
     def type_a_book(self):
         print("Books:")
-        print("\tHunger Games")
-
         print("\t" + "\n\t".join(self.book_info.book_list()).replace("_", " "))
 
-        # print(str(self.book_info.book_list()).replace("_", " "))
         book_chosen = input("Choose book from above list:").replace(" ", "_")
         book_chapters = self.book_info.chapter_list(book_chosen)
         while len(book_chapters) == 0:
