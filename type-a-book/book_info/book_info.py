@@ -40,10 +40,25 @@ class BookInfo():
 
     def paragraph_of_book_new(self, book_name, chapter_name, paragraph):
         book_by_line = self.contents_of_book_array(book_name)
-        chapter_list = self.chapter_list_new(book_name)
-        pass
-        # for
+        # chapter_list = self.chapter_list_new(book_name)
 
+        chapter_start_line = self.array_first_instance(
+            array_to_search=book_by_line,
+            search_for="{}.".format((chapter_name.split(".")[0]).strip()),
+            start_idx=0
+        )
+
+        # TODO: Get chapter end line - this will be tough for final chapter, right?
+        chapter_end_line = self.array_first_instance(
+            array_to_search=book_by_line,
+            search_for="{}.".format((chapter_name.split(".")[0]).strip()),
+            start_idx=0
+        )
+
+        if paragraph == 1:
+            return "{} {}".format(book_by_line[chapter_start_line], book_by_line[chapter_start_line+1])
+
+        return book_by_line[chapter_start_line + paragraph]
 
 
     def book_file_name(self, book_name):
