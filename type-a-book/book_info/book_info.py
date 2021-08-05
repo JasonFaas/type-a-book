@@ -1,4 +1,5 @@
 import os
+import roman
 
 class BookInfo():
 
@@ -42,21 +43,32 @@ class BookInfo():
         book_by_line = self.contents_of_book_array(book_name)
         # chapter_list = self.chapter_list_new(book_name)
 
+        current_chapter_line_in_book = "{}.".format((chapter_name.split(".")[0]).strip())
         chapter_start_line = self.array_first_instance(
             array_to_search=book_by_line,
-            search_for="{}.".format((chapter_name.split(".")[0]).strip()),
+            search_for=current_chapter_line_in_book,
             start_idx=0
         )
 
-        # TODO: Get chapter end line - this will be tough for final chapter, right?
-        chapter_end_line = self.array_first_instance(
+        chapter_after_start_line = self.array_first_instance(
             array_to_search=book_by_line,
-            search_for="{}.".format((chapter_name.split(".")[0]).strip()),
-            start_idx=0
-        )
+            search_for=self.next_chapter_line_in_book(current_chapter_line_in_book),
+            start_idx=chapter_start_line + 1
+        ) - 1
+        # TODO: If last chapter, looking for "THE END"
+
 
         if paragraph == 1:
             return "{} {}".format(book_by_line[chapter_start_line], book_by_line[chapter_start_line+1])
+        else:
+            # TODO: Join all lines from starting line to end line, no new line separator needed.
+            # THEN: Separate again based on newline.
+            # THEN: Return separated_var[paragraph+2]
+            # THEN: Figure out what the right magic number is
+            # THEN: Write another test with another paragraph number
+            pass
+
+
 
         return book_by_line[chapter_start_line + paragraph]
 
@@ -97,4 +109,9 @@ class BookInfo():
             if ord(char) > 127:
                 print("Bad value {}".format(ord(char)))
                 raise AttributeError("Value of {} greater than 126 {}".format(char, ord(char)))
+
+    def next_chapter_line_in_book(self, current_chapter_line_in_book):
+        current_roman = current_chapter_line_in_book[len('Chapter '):-1]
+        return 'Chapter {}.'.format(roman.toRoman(roman.fromRoman(current_roman)+1))
+        return current_roman
 

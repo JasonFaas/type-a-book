@@ -68,6 +68,10 @@ class TestBookInfo(unittest.TestCase):
                 text = self.book_info.chapter_of_book(book, chapter)
                 BookInfo.verify_legal_characters(text)
 
+    def test_next_chapter_line_in_book(self):
+        actual_next_chapter = self.book_info.next_chapter_line_in_book('Chapter VI.')
+        assert actual_next_chapter == 'Chapter VII.', ':{}:'.format(actual_next_chapter)
+
     def test_chapter_of_book(self):
         paragraph_1_actual = self.book_info.paragraph_of_book_new("Peter_Pan", "Chapter I. PETER BREAKS THROUGH", 1)
         assert paragraph_1_actual == "Chapter I. PETER BREAKS THROUGH", paragraph_1_actual
