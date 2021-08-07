@@ -61,16 +61,17 @@ class BookInfo():
         if paragraph == 1:
             return "{} {}".format(book_by_line[chapter_start_line], book_by_line[chapter_start_line+1])
         else:
-            # TODO: Join all lines from starting line to end line, no new line separator needed.
-            # THEN: Separate again based on newline.
-            # THEN: Return separated_var[paragraph+2]
-            # THEN: Figure out what the right magic number is
-            # THEN: Write another test with another paragraph number
-            pass
+            full_chapter = ""
+            for idx in range(chapter_start_line, chapter_after_start_line):
+                if book_by_line[idx]:
+                    full_chapter += '{} '.format(book_by_line[idx])
+                else:
+                    full_chapter += '\n'
+            full_chapter = full_chapter.strip()
 
+            full_chapter_split = full_chapter.split('\n')
 
-
-        return book_by_line[chapter_start_line + paragraph]
+        return full_chapter_split[paragraph].strip()
 
 
     def book_file_name(self, book_name):
