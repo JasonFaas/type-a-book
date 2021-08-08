@@ -33,7 +33,7 @@ class ApiRequest():
                          headers = {'app_id' : self.app_id,
                                     'app_key' : self.app_key})
         # print("Status Code {}\n".format(r.status_code))
-        print("text \n" + r.text)
+        # print("text \n" + r.text)
         # print("json \n" + json.dumps(r.json()))
         # assert r.status_code == 200
         return_word_info = WordInfo(r.status_code, r.json(), word_to_request)
@@ -45,30 +45,30 @@ class ApiRequest():
     def unit_tests(self):
         word_id = 'awfully'
         word_info_hc_awfully = self.word_info_hc(word_id)
-        print(word_info_hc_awfully)
+        # print(word_info_hc_awfully)
         self.unit_test_helper_awfully(word_info_hc_awfully)
 
         word_id = 'unpleasantly'
         word_info_hc_unpleasantly = self.word_info_hc(word_id)
         assert len(word_info_hc_unpleasantly.definitions()) == 0
         assert word_info_hc_unpleasantly.derivative_of() == "unpleasant"
-        print(word_info_hc_unpleasantly)
+        # print(word_info_hc_unpleasantly)
 
         word_id = 'lady'
         word_info_hc_lady = self.word_info_hc(word_id)
-        print(word_info_hc_lady)
+        # print(word_info_hc_lady)
         self.unit_test_helper_lady(word_info_hc_lady)
 
         word_id = 'whatekker'
         word_info_hc_whatekker = self.word_info_hc(word_id, 404)
-        print(word_info_hc_whatekker)
+        # print(word_info_hc_whatekker)
         assert word_info_hc_whatekker.general_error() == "No entry found matching supplied source_lang, word and provided filters"
 
         word_id = 'could'
         word_info_hc_could = self.word_info_hc(word_id)
         assert len(word_info_hc_could.definitions()) > 0
         assert len(word_info_hc_could.sentences()) > 0
-        print(word_info_hc_could)
+        # print(word_info_hc_could)
         
         # Good api lookup test (expensive)
         # word_id = 'awfully'

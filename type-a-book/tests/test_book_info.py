@@ -10,12 +10,6 @@ class TestBookInfo(unittest.TestCase):
     def test_book_list(self):
         assert self.book_info.book_list() == ['Alices_Adventures_in_Wonderland', 'Peter_Pan', ], self.book_info.book_list()
 
-    def test_peter_pan_chapter_list(self):
-        assert self.book_info.chapter_list("Peter_Pan") == ["00A-Intro",
-                                                  "01-Chapter_1",
-                                                  "02-Chapter_2",
-                                                  "03-Chapter_3"]
-
     def test_file_name_of_book(self):
         actual_file_name = self.book_info.book_file_name("Peter_Pan")
         assert actual_file_name == "16-0.txt", actual_file_name
@@ -64,9 +58,8 @@ class TestBookInfo(unittest.TestCase):
     def test_verify_all_books_all_legal_characters(self):
         # TODO make this more efficient
         for book in self.book_info.book_list():
-            for chapter in self.book_info.chapter_list(book):
-                text = self.book_info.chapter_of_book(book, chapter)
-                BookInfo.verify_legal_characters(text)
+            text = self.book_info.contents_of_book_array(book)
+            BookInfo.verify_legal_characters(book, "\n".join(text))
 
     def test_next_chapter_line_in_book(self):
         actual_next_chapter = self.book_info.next_chapter_line_in_book('Chapter VI.')

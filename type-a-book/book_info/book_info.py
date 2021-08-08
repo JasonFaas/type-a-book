@@ -17,7 +17,6 @@ class BookInfo():
 
         return return_idx
 
-
     def chapter_list_new(self, book_name):
         book_by_line = self.contents_of_book_array(book_name)
 
@@ -92,24 +91,26 @@ class BookInfo():
         files = [f.name for f in os.scandir(folder) if f.is_file() and f.name[0].isdigit()]
         return files[0]
 
-    def chapter_list(self, book_name):
-        folder = self.path_for_book(book_name) + "/chapters/"
-        files = []
-        if os.path.exists(folder):
-            files = [f.name.replace(".txt", "") for f in os.scandir(folder) if (f.is_file() and f.name[0] == '0')]
-            files.sort()
-        return files
+    # TODO: Delete old chapter list
+    # def chapter_list(self, book_name):
+    #     folder = self.path_for_book(book_name) + "/chapters/"
+    #     files = []
+    #     if os.path.exists(folder):
+    #         files = [f.name.replace(".txt", "") for f in os.scandir(folder) if (f.is_file() and f.name[0] == '0')]
+    #         files.sort()
+    #     return files
 
-    def chapter_of_book(self, book_name, chapter):
-        folder = self.path_for_book(book_name) + "/chapters/"
-        file = folder + chapter + ".txt"
-        with open(file, 'r') as file:
-            data = file.read()
-
-        # TODO make this more efficient
-        data = data.replace(chr(8220), "\"").replace(chr(8221), "\"")
-
-        return data
+    # TODO: Delete old chapter of book
+    # def chapter_of_book(self, book_name, chapter):
+    #     folder = self.path_for_book(book_name) + "/chapters/"
+    #     file = folder + chapter + ".txt"
+    #     with open(file, 'r') as file:
+    #         data = file.read()
+    #
+    #     # TODO make this more efficient
+    #     data = data.replace(chr(8220), "\"").replace(chr(8221), "\"")
+    #
+    #     return data
 
     def path_for_book(self, book_name):
         return self.path_for_books() + book_name
@@ -118,11 +119,24 @@ class BookInfo():
         return "../resources/books/project_gutenberg/"
 
     @staticmethod
-    def verify_legal_characters(text):
-        for char in text:
+    def verify_legal_characters(book_name, text):
+        new_line = 1
+        char_line = 0
+        for idx, char in enumerate(text):
+            if char == ord('\n'):
+                new_line += 1
+                char_line = 0
+            else:
+                char_line += 1
+
+            print(char)
+
+            if idx < 10:
+                continue
+
             if ord(char) > 127:
                 print("Bad value {}".format(ord(char)))
-                raise AttributeError("Value of {} greater than 126 {}".format(char, ord(char)))
+                raise AttributeError("Error in {}. Value of {} greater than 126 {} {} at line {} pos {}".format(book_name, char, ord(char), char, new_line, char_line))
 
     def next_chapter_line_in_book(self, current_chapter_line_in_book):
         current_roman = current_chapter_line_in_book[len('Chapter '):-1]
