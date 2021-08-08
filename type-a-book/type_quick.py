@@ -1,5 +1,6 @@
 from book_info.book_info import BookInfo
 from print_to_screen.print_screen import PrintScreen
+from print_to_screen.screen_input import ScreenInput
 from type_exceptions import MisspelledWordException
 from type_stuff import TypeStuff
 from user_info import UserInfo
@@ -13,6 +14,7 @@ class TypeQuick():
         self.book_info = BookInfo()
         self.api_request = ApiRequest()
         self.print_screen = PrintScreen(self.book_info)
+        self.screen_input = ScreenInput(self.book_info)
 
     def short(self):
         self.type_stuff._type_paragraph("The quick and-the fast!")
@@ -27,53 +29,61 @@ class TypeQuick():
             print("ASCII Value: " + str(ord(single_char)))
 
     def type_a_book(self):
-        self.print_screen.book_list()
-
-
-        book_chosen = input("Choose book from above list:").replace(" ", "_")
-        book_chapters = self.book_info.chapter_list(book_chosen)
-        while len(book_chapters) == 0:
-            print("Wrong choice '" + book_chosen + "'")
-            book_chosen = input("Choose book from above list:").replace(" ", "_")
+        while True:
+            self.print_screen.book_list()
+            book_chosen = self.screen_input.book_to_type()
             book_chapters = self.book_info.chapter_list(book_chosen)
+            if len(book_chapters) > 0:
+                break
+            else:
+                print("Wrong choice '" + book_chosen + "'")
 
-        print("\nChapters")
-        for chapter in book_chapters:
-            print("\t" + chapter)
+        self.print_screen.chapter_list(book_chapters)
 
-        book_positions = self.user_info.retreive_book_positions()
+        all_book_positions = self.user_info.retreive_book_positions()
         print("\t" + "\"Start\"-Start at the beginning?")
-        if book_chosen.replace(" ", "_") in book_positions:
-            print("\t" + "\"Resume\"-Continue at place you left off? # TODO Print Chapter and Paragraph")
+        if book_chosen.replace(" ", "_") in all_book_positions:
+            book_position = all_book_positions[book_chosen.replace(" ", "_")]
+            print("\t" + "\"Resume\"-Continue at \"{}\" paragraph {}".format(book_position["Chapter"], book_position["Paragraph"]))
 
-        paragraph_chosen = 0
-        chapter_chosen = input("Choose chapter from above list:")
+        while True:
+            chapter_chosen = input("Choose chapter from above list:")
 
-        if chapter_chosen == "Start":
-            chapter_chosen = book_chapters[0]
-        elif chapter_chosen == "Resume":
-            book_pos_info = book_positions[book_chosen]
-            chapter_chosen = book_pos_info["Chapter"]
-            paragraph_chosen = book_positions[book_chosen.replace(" ", "_")]["Paragraph"]
-        else:
-            while chapter_chosen not in book_chapters:
+            if chapter_chosen == "Start":
+                chapter_chosen = book_chapters[0]
+                paragraph_chosen = 1
+                break
+            elif chapter_chosen == "Resume":
+                book_pos_info = all_book_positions[book_chosen]
+                chapter_chosen = book_pos_info["Chapter"]
+                paragraph_chosen = book_position["Paragraph"]
+                break
+            elif chapter_chosen in book_chapters:
+                paragraph_chosen = 1
+                break
+            else:
                 print("Wrong choice '" + chapter_chosen + "'")
-                chapter_chosen = input("Choose chapter from above list:")
-
-        full_chapter = self.book_info.paragraph_of_book(book_chosen, chapter_chosen, 1)
 
         print("Starting to type {} at Chapter {} Paragraph {}.\n".format(book_chosen, chapter_chosen, paragraph_chosen))
 
-        self.type_stuff.type_chapter(full_chapter, book_chosen, chapter_chosen, paragraph_chosen)
+        # New paradigm
+        self.user_info.log_book_position(book_chosen,
+                                         {"Chapter": chapter_chosen,
+                                          "Paragraph": paragraph_chosen})
+        paragraph_to_type = self.book_info.paragraph_of_book(book_chosen, chapter_chosen, paragraph_chosen)
+        while True:
+            self.type_stuff._type_paragraph(paragraph_to_type)
 
-        next_chapter = book_chapters.index(chapter_chosen) + 1
-        if next_chapter == len(book_chapters):
-            self.user_info.remove_book_position(book_chosen)
-        else:    
-            self.user_info.log_book_position(book_chosen, 
-                                             {"Chapter":book_chapters[next_chapter], 
-                                              "Paragraph":0})
+            paragraph_chosen += 1
+            paragraph_to_type = self.book_info.paragraph_of_book(book_chosen, chapter_chosen, paragraph_chosen)
+            if paragraph_to_type == self.book_info.get_next_chapter(book_chosen, chapter_chosen):
+                chapter_chosen = paragraph_to_type
+                paragraph_to_type = 1
 
+            self.user_info.log_book_position(
+                book_chosen,
+                {"Chapter": chapter_chosen, "Paragraph": paragraph_chosen}
+            )
 
     def review_misspelled(self):
         to_review = list(self.user_info.retreive_misspelled_words())
