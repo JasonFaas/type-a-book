@@ -50,12 +50,18 @@ class BookInfo():
             start_idx=0
         )
 
-        chapter_after_start_line = self.array_first_instance(
-            array_to_search=book_by_line,
-            search_for=self.next_chapter_line_in_book(current_chapter_line_in_book),
-            start_idx=chapter_start_line + 1
-        ) - 1
-        # TODO: If last chapter, looking for "THE END"
+        if chapter_name == self.chapter_list_new(book_name)[-1]:
+            chapter_after_start_line = self.array_first_instance(
+                array_to_search=book_by_line,
+                search_for="THE END",
+                start_idx=chapter_start_line + 1
+            ) + 1
+        else:
+            chapter_after_start_line = self.array_first_instance(
+                array_to_search=book_by_line,
+                search_for=self.next_chapter_line_in_book(current_chapter_line_in_book),
+                start_idx=chapter_start_line + 1
+            )
 
 
         if paragraph == 1:
@@ -71,7 +77,15 @@ class BookInfo():
 
             full_chapter_split = full_chapter.split('\n')
 
-        return full_chapter_split[paragraph].strip()
+        if paragraph < len(full_chapter_split):
+            paragraph_requested = full_chapter_split[paragraph].strip()
+        elif self.chapter_list_new(book_name)[-1] == chapter_name:
+            paragraph_requested = full_chapter_split[-1].strip()  # This should be "THE END"
+        else:
+            next_chapter = self.get_next_chapter(book_name, chapter_name)
+            paragraph_requested = self.paragraph_of_book_new(book_name, next_chapter, 1)
+
+        return paragraph_requested
 
 
     def book_file_name(self, book_name):
@@ -115,4 +129,10 @@ class BookInfo():
         current_roman = current_chapter_line_in_book[len('Chapter '):-1]
         return 'Chapter {}.'.format(roman.toRoman(roman.fromRoman(current_roman)+1))
         return current_roman
+
+    def get_next_chapter(self, book_name, chapter_name):
+        chapter_list = self.chapter_list_new(book_name)
+        for idx, chapter in enumerate(chapter_list):
+            if chapter == chapter_name:
+                return chapter_list[idx + 1]
 
