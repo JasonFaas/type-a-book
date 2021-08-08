@@ -7,9 +7,6 @@ class TestBookInfo(unittest.TestCase):
         super(TestBookInfo, self).__init__(*args, **kwargs)
         self.book_info = BookInfo()
 
-    def test_book_list(self):
-        assert self.book_info.book_list() == ['Alices_Adventures_in_Wonderland', 'Peter_Pan', ], self.book_info.book_list()
-
     def test_file_name_of_book(self):
         actual_file_name = self.book_info.book_file_name("Peter_Pan")
         assert actual_file_name == "16-0.txt", actual_file_name
@@ -40,26 +37,20 @@ class TestBookInfo(unittest.TestCase):
     def test_alice_adventure_chapter_list(self):
         chapter_list_new = self.book_info.chapter_list("Alices_Adventures_in_Wonderland")
         expected_chapter_list = [
-            "CHAPTER I.     Down the Rabbit-Hole",
-            "CHAPTER II.    The Pool of Tears",
-            "CHAPTER III.   A Caucus-Race and a Long Tale",
-            "CHAPTER IV.    The Rabbit Sends in a Little Bill",
-            "CHAPTER V.     Advice from a Caterpillar",
-            "CHAPTER VI.    Pig and Pepper",
-            "CHAPTER VII.   A Mad Tea-Party",
-            "CHAPTER VIII.  The Queen's Croquet-Ground",
-            "CHAPTER IX.    The Mock Turtle's Story",
-            "CHAPTER X.     The Lobster Quadrille",
-            "CHAPTER XI.    Who Stole the Tarts?",
-            "CHAPTER XII.   Alice's Evidence",
+            'CHAPTER I. Down the Rabbit-Hole',
+            'CHAPTER II. The Pool of Tears',
+            'CHAPTER III. A Caucus-Race and a Long Tale',
+            'CHAPTER IV. The Rabbit Sends in a Little Bill',
+            'CHAPTER V. Advice from a Caterpillar',
+            'CHAPTER VI. Pig and Pepper',
+            'CHAPTER VII. A Mad Tea-Party',
+            "CHAPTER VIII. The Queen's Croquet-Ground",
+            "CHAPTER IX. The Mock Turtle's Story",
+            'CHAPTER X. The Lobster Quadrille',
+            'CHAPTER XI. Who Stole the Tarts?',
+            "CHAPTER XII. Alice's Evidence"
         ]
         assert chapter_list_new == expected_chapter_list, chapter_list_new
-
-    def test_verify_all_books_all_legal_characters(self):
-        # TODO make this more efficient
-        for book in self.book_info.book_list():
-            text = self.book_info.contents_of_book_array(book)
-            BookInfo.verify_legal_characters("\n".join(text), book)
 
     def test_next_chapter_line_in_book(self):
         actual_next_chapter = self.book_info.next_chapter_line_in_book('Chapter VI.')

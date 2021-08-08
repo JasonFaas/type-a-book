@@ -7,6 +7,7 @@ from book_info.book_info import BookInfo
 from api_request import ApiRequest
 from tests.test_book_info import TestBookInfo
 import tests.test_book_info
+import tests.test_books_all
 
 from unittest import TestCase
 import unittest
@@ -77,10 +78,14 @@ if __name__ == "__main__":
     TypeStuff("Unit_Tests").unit_tests()
     UserInfo("Unit_Tests").unit_tests()
 
-    suite = unittest.TestLoader().loadTestsFromModule(tests.test_book_info)
-    run = unittest.TextTestRunner(verbosity=2).run(suite)
-    assert len(run.failures) == 0, run.failures
-    assert len(run.errors) == 0, run.errors
+    unit_test_files = [tests.test_book_info, tests.test_books_all]
+
+    for test_file in unit_test_files:
+        suite = unittest.TestLoader().loadTestsFromModule(test_file)
+        run = unittest.TextTestRunner(verbosity=2).run(suite)
+        assert len(run.failures) == 0, run.failures
+        assert len(run.errors) == 0, run.errors
+        assert run.testsRun > 0, test_file
 
 
 

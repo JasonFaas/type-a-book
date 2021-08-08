@@ -10,7 +10,7 @@ class BookInfo():
 
     def array_first_instance(self, array_to_search, search_for, start_idx):
         return_idx = start_idx
-        while not array_to_search[return_idx] == search_for:
+        while not array_to_search[return_idx].lower().strip() == search_for.lower().strip():
             return_idx += 1
 
         assert return_idx < len(array_to_search) - 2, "Invalid search {}".format(search_for)
@@ -26,7 +26,7 @@ class BookInfo():
         chapters_unformatted = book_by_line[contents_line_idx + 2:last_chapter_idx]
 
         for idx in range(len(chapters_unformatted)):
-            chapters_unformatted[idx] = chapters_unformatted[idx][1:]
+            chapters_unformatted[idx] = " ".join(chapters_unformatted[idx].split())
 
         return chapters_unformatted
 
@@ -66,9 +66,10 @@ class BookInfo():
                 start_idx=chapter_start_line + 1
             ) + 1
         else:
+            next_chapter_line = self.next_chapter_line_in_book(current_chapter_line_in_book)
             chapter_after_start_line = self.array_first_instance(
                 array_to_search=book_by_line,
-                search_for=self.next_chapter_line_in_book(current_chapter_line_in_book),
+                search_for=next_chapter_line,
                 start_idx=chapter_start_line + 1
             )
 
