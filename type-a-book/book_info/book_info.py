@@ -5,9 +5,8 @@ class BookInfo():
 
     def book_list(self):
         folder = self.path_for_books()
-        subfolders = [f.name for f in os.scandir(folder) if f.is_dir() ]
+        subfolders = sorted([f.name for f in os.scandir(folder) if f.is_dir()])
         return subfolders
-
 
     def array_first_instance(self, array_to_search, search_for, start_idx):
         return_idx = start_idx

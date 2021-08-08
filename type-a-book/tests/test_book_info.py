@@ -8,7 +8,7 @@ class TestBookInfo(unittest.TestCase):
         self.book_info = BookInfo()
 
     def test_book_list(self):
-        assert self.book_info.book_list() == ['Peter_Pan', 'Alices_Adventures_in_Wonderland'], self.book_info.book_list()
+        assert self.book_info.book_list() == ['Alices_Adventures_in_Wonderland', 'Peter_Pan', ], self.book_info.book_list()
 
     def test_peter_pan_chapter_list(self):
         assert self.book_info.chapter_list("Peter_Pan") == ["00A-Intro",
