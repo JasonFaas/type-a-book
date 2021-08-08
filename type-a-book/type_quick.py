@@ -1,4 +1,5 @@
 from book_info.book_info import BookInfo
+from print_to_screen.print_screen import PrintScreen
 from type_exceptions import MisspelledWordException
 from type_stuff import TypeStuff
 from user_info import UserInfo
@@ -11,6 +12,7 @@ class TypeQuick():
         self.type_stuff = TypeStuff(user_name)
         self.book_info = BookInfo()
         self.api_request = ApiRequest()
+        self.print_screen = PrintScreen(self.book_info)
 
     def short(self):
         self.type_stuff._type_paragraph("The quick and-the fast!")
@@ -25,8 +27,8 @@ class TypeQuick():
             print("ASCII Value: " + str(ord(single_char)))
 
     def type_a_book(self):
-        print("Books:")
-        print("\t" + "\n\t".join(self.book_info.book_list()).replace("_", " "))
+        self.print_screen.book_list()
+
 
         book_chosen = input("Choose book from above list:").replace(" ", "_")
         book_chapters = self.book_info.chapter_list(book_chosen)
@@ -40,7 +42,7 @@ class TypeQuick():
             print("\t" + chapter)
 
         book_positions = self.user_info.retreive_book_positions()
-        print("\t" + "\"Start\"-Start at the begging?")
+        print("\t" + "\"Start\"-Start at the beginning?")
         if book_chosen.replace(" ", "_") in book_positions:
             print("\t" + "\"Resume\"-Continue at place you left off? # TODO Print Chapter and Paragraph")
 
@@ -58,7 +60,7 @@ class TypeQuick():
                 print("Wrong choice '" + chapter_chosen + "'")
                 chapter_chosen = input("Choose chapter from above list:")
 
-        full_chapter = self.book_info.chapter_of_book(book_chosen, chapter_chosen)
+        full_chapter = self.book_info.paragraph_of_book(book_chosen, chapter_chosen, 1)
 
         print("Starting to type {} at Chapter {} Paragraph {}.\n".format(book_chosen, chapter_chosen, paragraph_chosen))
 

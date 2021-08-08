@@ -17,7 +17,7 @@ class BookInfo():
 
         return return_idx
 
-    def chapter_list_new(self, book_name):
+    def chapter_list(self, book_name):
         book_by_line = self.contents_of_book_array(book_name)
 
         contents_line_idx = self.array_first_instance(array_to_search=book_by_line, search_for="Contents", start_idx=0)
@@ -48,9 +48,9 @@ class BookInfo():
         book_by_line = data.split('\n')
         return book_by_line
 
-    def paragraph_of_book_new(self, book_name, chapter_name, paragraph):
+    def paragraph_of_book(self, book_name, chapter_name, paragraph):
         book_by_line = self.contents_of_book_array(book_name)
-        # chapter_list = self.chapter_list_new(book_name)
+        # chapter_list = self.chapter_list(book_name)
 
         current_chapter_line_in_book = "{}.".format((chapter_name.split(".")[0]).strip())
         chapter_start_line = self.array_first_instance(
@@ -59,7 +59,7 @@ class BookInfo():
             start_idx=0
         )
 
-        if chapter_name == self.chapter_list_new(book_name)[-1]:
+        if chapter_name == self.chapter_list(book_name)[-1]:
             chapter_after_start_line = self.array_first_instance(
                 array_to_search=book_by_line,
                 search_for="THE END",
@@ -88,11 +88,11 @@ class BookInfo():
 
         if paragraph < len(full_chapter_split):
             paragraph_requested = full_chapter_split[paragraph].strip()
-        elif self.chapter_list_new(book_name)[-1] == chapter_name:
+        elif self.chapter_list(book_name)[-1] == chapter_name:
             paragraph_requested = full_chapter_split[-1].strip()  # This should be "THE END"
         else:
             next_chapter = self.get_next_chapter(book_name, chapter_name)
-            paragraph_requested = self.paragraph_of_book_new(book_name, next_chapter, 1)
+            paragraph_requested = self.paragraph_of_book(book_name, next_chapter, 1)
 
         return paragraph_requested
 
@@ -103,7 +103,7 @@ class BookInfo():
         return files[0]
 
     # TODO: Delete old chapter list
-    # def chapter_list(self, book_name):
+    # def chapter_list_old(self, book_name):
     #     folder = self.path_for_book(book_name) + "/chapters/"
     #     files = []
     #     if os.path.exists(folder):
@@ -112,7 +112,7 @@ class BookInfo():
     #     return files
 
     # TODO: Delete old chapter of book
-    # def chapter_of_book(self, book_name, chapter):
+    # def chapter_of_book_old(self, book_name, chapter):
     #     folder = self.path_for_book(book_name) + "/chapters/"
     #     file = folder + chapter + ".txt"
     #     with open(file, 'r') as file:
@@ -155,7 +155,7 @@ class BookInfo():
         return current_roman
 
     def get_next_chapter(self, book_name, chapter_name):
-        chapter_list = self.chapter_list_new(book_name)
+        chapter_list = self.chapter_list(book_name)
         for idx, chapter in enumerate(chapter_list):
             if chapter == chapter_name:
                 return chapter_list[idx + 1]
