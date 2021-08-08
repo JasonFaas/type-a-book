@@ -130,7 +130,7 @@ class BookInfo():
         return "../resources/books/project_gutenberg/"
 
     @staticmethod
-    def verify_legal_characters(book_name, text):
+    def verify_legal_characters(text, book_name="testing"):
         new_line = 1
         char_line = 0
         for idx, char in enumerate(text):

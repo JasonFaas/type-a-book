@@ -59,7 +59,7 @@ class TestBookInfo(unittest.TestCase):
         # TODO make this more efficient
         for book in self.book_info.book_list():
             text = self.book_info.contents_of_book_array(book)
-            BookInfo.verify_legal_characters(book, "\n".join(text))
+            BookInfo.verify_legal_characters("\n".join(text), book)
 
     def test_next_chapter_line_in_book(self):
         actual_next_chapter = self.book_info.next_chapter_line_in_book('Chapter VI.')
