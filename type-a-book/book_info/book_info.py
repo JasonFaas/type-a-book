@@ -34,6 +34,17 @@ class BookInfo():
         book_file_name = self.book_file_name(book_name)
         with open("{}/{}".format(self.path_for_book(book_name), book_file_name), 'r') as file:
             data = file.read()
+            data = data\
+                .replace(chr(8216), "'")\
+                .replace(chr(8217), "'")\
+                .replace(chr(8220), "\"")\
+                .replace(chr(8221), "\"")\
+                .replace(chr(8221), "\"")\
+                .replace(chr(249), "u")\
+                .replace(chr(8212), "-")\
+                .replace(chr(233), "e")\
+                # TODO: Consider allowing characters 128-255
+
         book_by_line = data.split('\n')
         return book_by_line
 
@@ -129,14 +140,14 @@ class BookInfo():
             else:
                 char_line += 1
 
-            print(char)
+            # print(char)
 
             if idx < 10:
                 continue
 
             if ord(char) > 127:
                 print("Bad value {}".format(ord(char)))
-                raise AttributeError("Error in {}. Value of {} greater than 126 {} {} at line {} pos {}".format(book_name, char, ord(char), char, new_line, char_line))
+                raise AttributeError("Error in {}. Value of \"{}\" greater than 126 {} at line {} pos {}".format(book_name, char, ord(char), new_line, char_line))
 
     def next_chapter_line_in_book(self, current_chapter_line_in_book):
         current_roman = current_chapter_line_in_book[len('Chapter '):-1]

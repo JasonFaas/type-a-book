@@ -24,14 +24,14 @@ class TestBookInfo(unittest.TestCase):
             "Chapter V. THE ISLAND COME TRUE",
             "Chapter VI. THE LITTLE HOUSE",
             "Chapter VII. THE HOME UNDER THE GROUND",
-            "Chapter VIII. THE MERMAIDS’ LAGOON",
+            "Chapter VIII. THE MERMAIDS' LAGOON",
             "Chapter IX. THE NEVER BIRD",
             "Chapter X. THE HAPPY HOME",
-            "Chapter XI. WENDY’S STORY",
+            "Chapter XI. WENDY'S STORY",
             "Chapter XII. THE CHILDREN ARE CARRIED OFF",
             "Chapter XIII. DO YOU BELIEVE IN FAIRIES?",
             "Chapter XIV. THE PIRATE SHIP",
-            "Chapter XV. “HOOK OR ME THIS TIME”",
+            "Chapter XV. \"HOOK OR ME THIS TIME\"",
             "Chapter XVI. THE RETURN HOME",
             "Chapter XVII. WHEN WENDY GREW UP",
         ]
@@ -47,11 +47,11 @@ class TestBookInfo(unittest.TestCase):
             "CHAPTER V.     Advice from a Caterpillar",
             "CHAPTER VI.    Pig and Pepper",
             "CHAPTER VII.   A Mad Tea-Party",
-            "CHAPTER VIII.  The Queen’s Croquet-Ground",
-            "CHAPTER IX.    The Mock Turtle’s Story",
+            "CHAPTER VIII.  The Queen's Croquet-Ground",
+            "CHAPTER IX.    The Mock Turtle's Story",
             "CHAPTER X.     The Lobster Quadrille",
             "CHAPTER XI.    Who Stole the Tarts?",
-            "CHAPTER XII.   Alice’s Evidence",
+            "CHAPTER XII.   Alice's Evidence",
         ]
         assert chapter_list_new == expected_chapter_list, chapter_list_new
 
@@ -70,22 +70,18 @@ class TestBookInfo(unittest.TestCase):
         assert paragraph_1_actual == "Chapter I. PETER BREAKS THROUGH", paragraph_1_actual
 
     def test_second_paragraph_of_chapter_book(self):
-        paragraph_2_actual = self.book_info.paragraph_of_book_new("Peter_Pan", "Chapter I. PETER BREAKS THROUGH", 2)
-        assert paragraph_2_actual == "All children, except one, grow up. They soon know that they will grow up, and the way Wendy knew was this. One day when she was two years old she was playing in a garden, and she plucked another flower and ran with it to her mother. I suppose she must have looked rather delightful, for Mrs. Darling put her hand to her heart and cried, “Oh, why can’t you remain like this for ever!” This was all that passed between them on the subject, but henceforth Wendy knew that she must grow up. You always know after you are two. Two is the beginning of the end.", "Actual:{}:".format(paragraph_2_actual)
-
-    def test_second_paragraph_of_chapter_book(self):
         book_name = "Peter_Pan"
         chapter_name = "Chapter I. PETER BREAKS THROUGH"
         paragraph_number = 2
         paragraph_2_actual = self.book_info.paragraph_of_book_new(book_name, chapter_name, paragraph_number)
-        assert paragraph_2_actual == "All children, except one, grow up. They soon know that they will grow up, and the way Wendy knew was this. One day when she was two years old she was playing in a garden, and she plucked another flower and ran with it to her mother. I suppose she must have looked rather delightful, for Mrs. Darling put her hand to her heart and cried, “Oh, why can’t you remain like this for ever!” This was all that passed between them on the subject, but henceforth Wendy knew that she must grow up. You always know after you are two. Two is the beginning of the end.", "Actual:{}:".format(paragraph_2_actual)
+        assert paragraph_2_actual == "All children, except one, grow up. They soon know that they will grow up, and the way Wendy knew was this. One day when she was two years old she was playing in a garden, and she plucked another flower and ran with it to her mother. I suppose she must have looked rather delightful, for Mrs. Darling put her hand to her heart and cried, \"Oh, why can't you remain like this for ever!\" This was all that passed between them on the subject, but henceforth Wendy knew that she must grow up. You always know after you are two. Two is the beginning of the end.", "Actual:{}:".format(paragraph_2_actual)
 
     def test_last_paragraph_of_chapter_book(self):
         book_name = "Peter_Pan"
         chapter_name = "Chapter I. PETER BREAKS THROUGH"
         paragraph_number = 53
         paragraph_2_actual = self.book_info.paragraph_of_book_new(book_name, chapter_name, paragraph_number)
-        paragraph_expected = "She started up with a cry, and saw the boy, and somehow she knew at once that he was Peter Pan. If you or I or Wendy had been there we should have seen that he was very like Mrs. Darling’s kiss. He was a lovely boy, clad in skeleton leaves and the juices that ooze out of trees but the most entrancing thing about him was that he had all his first teeth. When he saw she was a grown-up, he gnashed the little pearls at her."
+        paragraph_expected = "She started up with a cry, and saw the boy, and somehow she knew at once that he was Peter Pan. If you or I or Wendy had been there we should have seen that he was very like Mrs. Darling's kiss. He was a lovely boy, clad in skeleton leaves and the juices that ooze out of trees but the most entrancing thing about him was that he had all his first teeth. When he saw she was a grown-up, he gnashed the little pearls at her."
 
         assert paragraph_2_actual == paragraph_expected, "Actual:{}:".format(paragraph_2_actual)
 
@@ -106,7 +102,7 @@ class TestBookInfo(unittest.TestCase):
 
         chapter_last_paragraph_7_actual = self.book_info.paragraph_of_book_new(book_name, paragraph_name, paragraph_to_lookup)
 
-        assert chapter_last_paragraph_7_actual == "“We could lie doubled up,” said Nibs.", "Actual:{}:".format(chapter_last_paragraph_7_actual)
+        assert chapter_last_paragraph_7_actual == "\"We could lie doubled up,\" said Nibs.", "Actual:{}:".format(chapter_last_paragraph_7_actual)
 
     def test_beyond_last_chapter(self):
         book_name = "Peter_Pan"
