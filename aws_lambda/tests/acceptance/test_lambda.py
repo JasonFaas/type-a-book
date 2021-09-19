@@ -1,9 +1,12 @@
+import unittest
 import requests
 
-class TestAwsLambda(object):
-    def test_ping(self):
-        pass
+class TestAwsLambda(unittest.TestCase):
 
-    def test_fail(self):
-        assert 1 == 2
-        
+    @classmethod
+    def setUpClass(cls):
+        with open('/Users/jasonoclaf/.aws/lambda_url.txt', 'r') as file:
+            cls.aws_url = file.read()[:-1]
+
+    def test_ping(self):
+        requests.get("%s/transactionStage/transactions/?transactionId=5&type=PURCHASE&amount=300" % self.aws_url)
