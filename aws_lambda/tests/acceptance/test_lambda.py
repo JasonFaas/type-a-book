@@ -1,11 +1,13 @@
 import unittest
 import requests
+import os
 
 class TestAwsLambda(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        with open('/Users/jasonoclaf/.aws/lambda_url.txt', 'r') as file:
+        current_user_home_dir = os.path.expanduser('~')
+        with open('%s/.aws/lambda_url.txt' % current_user_home_dir, 'r') as file:
             cls.aws_url = file.read()[:-1]
 
     def test_ping(self):
