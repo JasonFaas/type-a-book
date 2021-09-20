@@ -4,6 +4,7 @@ qsp = 'queryStringParameters'
 
 print('Loading Function top lambda function')
 
+
 def lambda_handler(event, context):
     # 1. Parse out query string params
     id = 'transactionId'
@@ -22,7 +23,7 @@ def lambda_handler(event, context):
     responseObject = {}
     responseObject['statusCode'] = 200
     responseObject['headers'] = {}
-    respnnseObject['headers']['Content-Type'] = 'application/json'
+    responseObject['headers']['Content-Type'] = 'application/json'
     responseObject['body'] = json.dumps(transactionResponse)
 
     return responseObject
