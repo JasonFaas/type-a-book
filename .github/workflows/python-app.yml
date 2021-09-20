@@ -30,11 +30,11 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
+      env:
+        aws_lambda_url: ${{ secrets.API_GATEWAY_LAMBDA_URL }}
       run: |
         cd type-a-book
         python3 -m unittest -v -b
-        env:
-          aws_lambda_url: ${{ secrets.API_GATEWAY_LAMBDA_URL }}
         mkdir ~/.aws/
         echo "$aws_lambda_url" > ~/.aws/lambda_url.txt
         cd ../aws_lambda/tests/acceptance
