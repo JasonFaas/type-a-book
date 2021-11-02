@@ -1,5 +1,5 @@
 # type-a-book
-Improve my typing speed and learning new words
+Improve my typing speed, learn new words, and read classic books
 
 # Start program
 Go to type-a-book:
